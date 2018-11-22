@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "fontawesome";
+  src:url("fonts/fontawesome.eot");
+  src:url("fonts/fontawesome.eot?#iefix") format("embedded-opentype"),
+    url("fonts/fontawesome.woff") format("woff"),
+    url("fonts/fontawesome.ttf") format("truetype"),
+    url("fonts/fontawesome.svg#fontawesome") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "fontawesome" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "fontawesome" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-belga-reporter:before {
+  content: "\61";
+}
+.icon-belga:before {
+  content: "\62";
+}
+.icon-reporter:before {
+  content: "\63";
+}
+.icon-reporter-01:before {
+  content: "\64";
+}
+.icon-reporter-02:before {
+  content: "\65";
+}
+.icon-reporter-03:before {
+  content: "\66";
+}
+.icon-reporter-04:before {
+  content: "\67";
+}
+.icon-reporter-05:before {
+  content: "\68";
+}
+.icon-reporter-06:before {
+  content: "\69";
+}
+.icon-reporter-07:before {
+  content: "\6a";
+}
+.icon-reporter-08:before {
+  content: "\6b";
+}
+.icon-reporter-09:before {
+  content: "\6c";
+}
+.icon-reporter-10:before {
+  content: "\6d";
+}
+.icon-reporter-11:before {
+  content: "\6e";
+}
+.icon-reporter-12:before {
+  content: "\6f";
+}
+.icon-reporter-13:before {
+  content: "\70";
+}
+.icon-reporter-14:before {
+  content: "\71";
+}
+.icon-reporter-15:before {
+  content: "\72";
+}
+.icon-reporter-16:before {
+  content: "\73";
+}
+.icon-reporter-17:before {
+  content: "\74";
+}
+.icon-reporter-18:before {
+  content: "\75";
+}
+.icon-reporter-19:before {
+  content: "\76";
+}
+.icon-reporter-20:before {
+  content: "\77";
+}
+.icon-reporter-21:before {
+  content: "\78";
+}
+.icon-reporter-22:before {
+  content: "\79";
+}
+.icon-reporter-23:before {
+  content: "\7a";
+}
+.icon-reporter-24:before {
+  content: "\41";
+}
+.icon-reporter-25:before {
+  content: "\42";
+}
+.icon-reporter-26:before {
+  content: "\43";
+}

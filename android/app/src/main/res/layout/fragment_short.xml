@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="false">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/viking" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/attribute"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextEdit"
+                        android:text="@string/topic_text"/>
+
+                    <EditText
+                        android:id="@+id/short_topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/selector_edittext"
+                        android:hint="@string/topic_text"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        style="@style/TextEdit"
+                        android:text="@string/title_text"/>
+
+                    <EditText
+                        android:id="@+id/short_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/selector_edittext"
+                        android:hint="@string/title_text"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        style="@style/TextEdit"
+                        android:text="@string/lead_text"/>
+
+                    <EditText
+                        android:id="@+id/short_lead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/selector_edittext"
+                        android:hint="@string/lead_text"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        style="@style/TextEdit"
+                        android:text="@string/body_text"/>
+
+                    <EditText
+                        android:id="@+id/short_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selector_edittext"
+                        android:hint="@string/body_text"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <include layout="@layout/metadata_detail_layout" />
+
+                <include
+                    layout="@layout/metadata_edit_layout"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

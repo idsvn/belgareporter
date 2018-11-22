@@ -1,0 +1,227 @@
+<resources>
+    <string name="app_name">Belga Reporter</string>
+    <string name="text_lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="choose_an_action">Choose an action</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+
+    <!--Navigation-->
+    <string name="open_menu">Open Menu</string>
+    <string name="close_menu">Close Menu</string>
+    <string name="overview_posts"><b>Overview Posts</b></string>
+    <string name="add_alert">Add Alert</string>
+    <string name="add_short">Add Short</string>
+    <string name="add_picture">Add Picture</string>
+    <string name="add_video">Add Video</string>
+    <string name="add_audio">Add Audio</string>
+    <string name="manage_default_metadata">Manage default Metadata</string>
+    <string name="manage_upload_settings">Manage upload settings</string>
+    <string name="manage_profile">Manage profile</string>
+    <string name="manage_log_out">Log out</string>
+
+    <!--Fragment Title-->
+    <string name="posts">POSTS</string>
+
+    <!--Login Screen-->
+    <string name="login"><b>login</b></string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+
+    <!--Fragment_login-->
+    <string name="watch_pass">Password</string>
+    <string name="forgot"><b>Forgot password</b></string>
+
+    <!-- Profile Created by Tai 20/11/2018-->
+    <string name="first_name">First:</string>
+    <string name="last_name">Last:</string>
+    <string name="save">SAVE</string>
+    <string name="gender">Gender:</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <!--Fragment_change_password-->
+    <string name="title_change_password_black"><b>CHANGE</b></string>
+    <string name="title_change_password_white"><b>PASSWORD</b></string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="apply"><b>Apply</b></string>
+
+    <!--Fragment_forgot_password-->
+    <string name="title_forgot_password_black"><b>FORGOT</b></string>
+    <string name="title_forgot_password_white"><b>PASSWORD</b></string>
+    <string name="title_forgot_password_detail">Enter your email address and we\'ll send you\na new password right away</string>
+    <string name="send_forgot_password"><b>SEND</b></string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
+    <!--Fragment_short-->
+    <string name="short_text">Short</string>
+    <string name="alert_text">Alert</string>
+    <string name="topic_text">Topic</string>
+    <string name="title_text">Title</string>
+    <string name="caption_text">Caption</string>
+    <string name="lead_text">Lead</string>
+    <string name="body_text">Body</string>
+
+    <string name="package_text">Package</string>
+    <string name="urgency_text">Urgency</string>
+    <string name="distribution_text">Distribution</string>
+    <string name="language_text">Language</string>
+    <string name="keyword_text">Keywords</string>
+    <string name="iptc_text">IPTC</string>
+    <string name="author_text">Author</string>
+    <string name="label_text">Label</string>
+    <string name="status_text">Status</string>
+    <string name="city_text">City</string>
+    <string name="country_text">Country</string>
+    <string name="editorial_text">Editorial</string>
+    <string name="info_text">Info</string>
+    <string name="credit_text">Credit</string>
+    <string name="source_text">Source</string>
+    <string name="comment_text">Comment</string>
+
+    <!--Fragment_picture-->
+    <string name="picture">Picture</string>
+    <string name="video">Video</string>
+    <string name="audio">Audio</string>
+    <string name="picture_detail">Picture Detail</string>
+    <string name="video_detail">Video Detail</string>
+    <string name="audio_detail">Audio Detail</string>
+    <string name="picture_topic">Topic</string>
+    <string name="picture_title">Title</string>
+    <string name="picture_caption">Caption</string>
+    <string name="asymmetric_display">Asymmetric Display</string>
+    <string name="symmetry_display">Symmetry Display</string>
+
+    <!--Post-->
+    <string name="empty_post">You do not have any post</string>
+    <string name="empty_new_post">You do not have any new post</string>
+    <string name="empty_in_progress_post">You do not have any in progress post</string>
+    <string name="empty_published_post">You do not have any published post</string>
+    <string name="empty_failed_post">You do not have any failed post</string>
+
+    <!--Menu List Posts-->
+    <string name="edit_menu">Edit</string>
+    <string name="delete_menu">Delete</string>
+    <string name="cancel_menu">Cancel</string>
+    <string name="send_menu">Send</string>
+
+    <!-- -->
+    <string name="text_mime_type">application/java</string>
+    <string name="loading_please_wait">Loading, please hold on...</string>
+    <string name="some_error_occurred">Some error occurred, please try again later.</string>
+    <string name="colon_icon">:</string>
+
+    <string name="my_metadata">My Metadata</string>
+    <string name="connect_any_network"><font size="16">On any network</font>\n<font color="#BCBCBC" size="12">Data charges may apply</font></string>
+    <string name="connect_wifi">Only when on Wi-Fi</string>
+
+    <!--Medatata Data-->
+    <string-array name="metadata_packages_1">
+        <item>BTL</item>
+        <item>EXT</item>
+        <item>BIN</item>
+        <item>SPF</item>
+        <item>INT</item>
+    </string-array>
+
+    <string-array name="metadata_packages_2">
+        <item>ALG</item>
+        <item>FINANCE</item>
+        <item>GEN</item>
+        <item>RES</item>
+        <item>UIT</item>
+    </string-array>
+
+    <string-array name="metadata_urgency">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="metadata_distribution">
+        <item>Default</item>
+        <item>B</item>
+    </string-array>
+
+    <string-array name="metadata_language">
+        <item>German</item>
+        <item>English</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Dutch</item>
+    </string-array>
+
+    <string-array name="metadata_iptc">
+        <item>Arts, Culture, Entertainment</item>
+        <item>Crime, Law, Justice</item>
+        <item>Disaster, Accidents</item>
+        <item>Economy, Business, Finance</item>
+        <item>Education</item>
+        <item>Environmental Issues</item>
+        <item>Health</item>
+        <item>Human Interest</item>
+        <item>Labour</item>
+        <item>Lifestyle, Leisure</item>
+        <item>Polotics</item>
+        <item>Religion, Belief</item>
+        <item>Science, Technology</item>
+        <item>Social Issues</item>
+        <item>Sport</item>
+        <item>Unrest, Conflcts, War</item>
+        <item>Weather</item>
+    </string-array>
+
+    <string-array name="metadata_authors">
+        <item>AUTHOR</item>
+        <item>CORRESPONDENT</item>
+        <item>EDITOR</item>
+    </string-array>
+
+    <string-array name="metadata_status">
+        <item>CANCELED</item>
+        <item>EMBARGOED</item>
+        <item>USABLE</item>
+        <item>WITHHELD</item>
+    </string-array>
+
+    <!-- FontAwesome -->
+    <string name="edit_icon">&#65;</string>
+    <string name="change_picture_icon">&#66;</string>
+    <string name="copy_icon">&#67;</string>
+    <string name="short_asymmetric_icon">&#69;</string>
+    <string name="clear_icon">&#70;</string>
+    <string name="back_icon">&#72;</string>
+    <string name="play_icon">&#73;</string>
+    <string name="audio_icon">&#75;</string>
+    <string name="paste_icon">&#77;</string>
+    <string name="hidden_password_icon">&#97;</string>
+    <string name="short_symmetry_icon">&#101;</string>
+    <string name="belga_reporter_icon">&#102;</string>
+    <string name="belga_icon">&#103;</string>
+    <string name="reporter_icon">&#104;</string>
+    <string name="show_password_icon">&#105;</string>
+    <string name="audio_circle_icon">&#106;</string>
+    <string name="picture_icon">&#107;</string>
+    <string name="video_icon">&#108;</string>
+    <string name="short_icon">&#109;</string>
+    <string name="alert_icon">&#110;</string>
+    <string name="overview_posts_icon">&#111;</string>
+    <string name="arrow_icon">&#112;</string>
+    <string name="user_icon">&#113;</string>
+    <string name="send_icon">&#114;</string>
+    <string name="uploading_icon">&#120;</string>
+    <string name="my_profile">My Profile</string>
+    <string name="upload_setting">Upload Setting</string>
+    <string name="done">Done</string>
+    <string name="wifi_connected">Wi-Fi Connected</string>
+    <string name="lost_connection">Lost connection</string>
+    <string name="no_internet_connection_message">Unnable to connect to server. Please check your internet connection and try again.</string>
+</resources>

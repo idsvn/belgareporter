@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_generic"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/textview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_setting"
+            android:textColor="@color/nobel"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/container_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_title"
+            android:layout_margin="10dp">
+
+            <RadioButton
+                android:id="@+id/radio_wifi_network"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/custom_radio"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/connect_wifi"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/radio_any_network"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/custom_radio"
+                android:padding="10dp"
+                android:text="@string/connect_any_network" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container_radio"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:text="@string/done"
+            android:textColor="@color/viking" />
+
+    </RelativeLayout>
+
+</FrameLayout>

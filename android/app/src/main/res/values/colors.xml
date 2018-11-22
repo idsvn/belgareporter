@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#49AFB7</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="viking">#49AFB7</color>
+    <color name="viking_30_opacity">#8049AFB7</color>
+    <color name="background_generic">#FFFFFF</color>
+    <color name="white_smoke">#F2F2F2</color>
+    <color name="powder_blue">#B6DFE2</color>
+    <color name="gun_powder">#58585A</color>
+    <color name="flamingo">#EF5454</color>
+    <color name="whisper">#EEEEEE</color>
+    <color name="silver">#BCBCBC</color>
+    <color name="carrot_orange">#FC931B</color>
+    <color name="dark_orange">#FF8A05</color>
+    <color name="chinook">#8DD4A2</color>
+    <color name="very_light_grey">#CCCCCC</color>
+    <color name="golden_poppy">#FFC304</color>
+    <color name="summer_sky">#29ABE2</color>
+    <color name="old_lace">#FCF6E7</color>
+    <color name="rose_white">#FDEFEB</color>
+    <color name="mint_cream">#EDFAF3</color>
+    <color name="snow">#F9F9F9</color>
+    <color name="nobel">#9E9E9E</color>
+    <color name="black_30_opaciti">#33000000</color>
+    <color name="bright_grey">#58595B</color>
+    <color name="dim_gray">#656565</color>
+    <color name="pink_swan">#B4B4B4</color>
+</resources>
