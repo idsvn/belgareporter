@@ -25,7 +25,6 @@ import belga.be.belgareporter.R;
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnLogin;
-    private FrameLayout mProgressView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
 
         setContentView(R.layout.activity_start);
-        mProgressView = (FrameLayout) findViewById(R.id.loading_progress_layout);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(this);
 
@@ -92,8 +90,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showErrorMessage(String message) {
-        showProgress(false);
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setMessage(message)
                 .setCancelable(true)
@@ -107,7 +103,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         builder.create().show();
     }
 
-    public void showProgress(final boolean show) {
+    public void showProgress(final boolean show, final View mProgressView) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 

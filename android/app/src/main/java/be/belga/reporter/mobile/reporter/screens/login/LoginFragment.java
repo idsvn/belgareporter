@@ -1,18 +1,15 @@
 package be.belga.reporter.mobile.reporter.screens.login;
 
 import android.app.ActionBar;
-import android.app.AlarmManager;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -29,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -63,6 +59,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
     private Button btnLogin;
     private Button btnForgotPassword;
     private StartActivity startActivity;
+    private View mProgressView;
 
     public static LoginFragment getInstance() {
         LoginFragment instance = new LoginFragment();
@@ -91,6 +88,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
         btnLogin.setOnClickListener(this);
         btnForgotPassword = result.findViewById(R.id.btn_forgot_password);
         btnForgotPassword.setOnClickListener(this);
+        mProgressView = result.findViewById(R.id.login_progress);
 
         setupToolbar();
 
@@ -147,8 +145,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
         editEmail.setError(null);
         editPassword.setError(null);
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Store values at the time of the login attempt.
         final String email = editEmail.getText().toString();
@@ -179,7 +176,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
             cancel = true;
         }
 
-        if (!isNetworkEnabled) {
+        if (cm.getActiveNetworkInfo() == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage(R.string.no_internet_connection_message)
                     .setCancelable(false)
@@ -195,7 +192,7 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
             if (cancel) {
                 focusView.requestFocus();
             } else {
-                startActivity.showProgress(true);
+                startActivity.showProgress(true, mProgressView);
                 try {
                     JSONObject requestParams = new JSONObject();
                     requestParams.put("username", email);
@@ -252,12 +249,13 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
                                         Log.e(TAG, e.getMessage(), e);
                                     }
 
-                                    startActivity.showProgress(false);
+                                    startActivity.showProgress(false, mProgressView);
                                 }
 
                                 @Override
                                 public void onFailure(int statusCode, Header[] headers, Throwable error, JSONObject responseBody) {
                                     super.onFailure(statusCode, headers, error, responseBody);
+                                    startActivity.showProgress(false, mProgressView);
 
                                     try {
                                         if (responseBody != null) {
@@ -277,8 +275,6 @@ public class LoginFragment extends Fragment implements LoaderCallbacks<Cursor>, 
                                     logData.put("email", email);
 
                                     AnalyticsManager.getInstance().trackEvent("Login failed", logData);
-
-                                    startActivity.showProgress(false);
                                 }
                             }, true);
                 } catch (Exception e) {

@@ -19,13 +19,11 @@ import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.network.HttpClient;
 import be.belga.reporter.mobile.reporter.network.ReporterJsonHttpResponseHandler;
-import be.belga.reporter.mobile.reporter.screens.myposts.PostsFragment;
 import be.belga.reporter.utils.FileUtil;
 import belga.be.belgareporter.R;
 import cz.msebera.android.httpclient.Header;
 import io.tus.android.client.TusAndroidUpload;
 import io.tus.java.client.TusClient;
-import io.tus.java.client.TusURLStore;
 import io.tus.java.client.TusUpload;
 
 public class UploadPort extends AsyncTask<String, Long, Post> {
@@ -35,7 +33,6 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
     private int index;
 
     private UploadFile uploadFile;
-    private TusURLStore urlStore;
     private TusClient client;
 
     private String fileId;
@@ -45,7 +42,6 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
         this.fragment = fragment;
         this.post = post;
         this.client = FileUtil.getTusClient(activity);
-        this.urlStore = FileUtil.getTusURLStore(activity);
         this.index = getIndexByProperty(ReporterApplication.getInstance().getPosts(), post);
     }
 
@@ -120,7 +116,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
         try {
             String[] pathArr = null;
             TusUpload upload = new TusAndroidUpload(FileUtil.getImageContentUri(activity, new File(post.getFileUpload().getGeneratedUrl()), post.getType().getStatus()), activity);
-            uploadFile = new UploadFile(activity, client, upload, post.getFileUpload(), post);
+            uploadFile = new UploadFile(activity, client, upload, post);
             uploadFile.execute(new Void[0]);
 
             while (pathArr == null) {

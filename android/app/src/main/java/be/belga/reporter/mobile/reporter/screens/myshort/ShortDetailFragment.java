@@ -3,6 +3,7 @@ package be.belga.reporter.mobile.reporter.screens.myshort;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,7 @@ import be.belga.reporter.mobile.reporter.model.Metadata;
 import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
-import be.belga.reporter.mobile.reporter.screens.myposts.PostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
 import be.belga.reporter.mobile.reporter.service.UploadPort;
 import be.belga.reporter.utils.MetadataUtil;
 import belga.be.belgareporter.R;
@@ -258,7 +259,13 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
                     clearText();
                     return true;
                 case R.id.send_menu:
-                    PostsFragment fragment = (PostsFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments().get(0);
+                    List<Fragment> fragmentList = getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments();
+                    AllPostsFragment fragment = null;
+                    for (Fragment fr : fragmentList) {
+                        if (fr instanceof AllPostsFragment) {
+                            fragment = (AllPostsFragment) fr;
+                        }
+                    }
                     uploadPort = new UploadPort(getActivity(), fragment, prepareSendData());
                     uploadPort.execute(APIUrls.getPostUrl());
                     mainActivity.hideSoftKeyboard(getActivity());
