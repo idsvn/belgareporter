@@ -5,14 +5,19 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import be.belga.reporter.mobile.reporter.application.ReporterApplication;
-import be.belga.reporter.mobile.reporter.model.FileUpload;
 import be.belga.reporter.mobile.reporter.model.Post;
-import be.belga.reporter.mobile.reporter.screens.myposts.PostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.FailedPostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.InProgressPostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.NewPostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.PublishedPostsFragment;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
 import io.tus.java.client.TusUploader;
@@ -21,14 +26,14 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
     private Activity activity;
     private TusClient client;
     private TusUpload upload;
-    private FileUpload fileUpload;
+    private Post post;
     private int index;
 
-    public UploadFile(Activity activity, TusClient client, TusUpload upload, FileUpload fileUpload, Post post) {
+    public UploadFile(Activity activity, TusClient client, TusUpload upload, Post post) {
         this.activity = activity;
         this.client = client;
         this.upload = upload;
-        this.fileUpload = fileUpload;
+        this.post = post;
         this.index = getIndexByProperty(ReporterApplication.getInstance().getPosts(), post);
     }
 
@@ -36,15 +41,30 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
     protected void onProgressUpdate(Long... updates) {
         long uploadedBytes = updates[0];
         long totalBytes = updates[1];
-        double percentUpload = (double) uploadedBytes / totalBytes * 100;
-        PostsFragment.getInstance().setStatus(index, String.valueOf(percentUpload));
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        String percentUpload = formatter.format((double) uploadedBytes / totalBytes * 100);
+        AllPostsFragment.getInstance().setStatus(index, percentUpload);
+        switch (post.getWorkflowStatus()) {
+            case NEW:
+                NewPostsFragment.getInstance().setStatus(index, percentUpload);
+                break;
+            case IN_PROGRESS:
+                InProgressPostsFragment.getInstance().setStatus(index, percentUpload);
+                break;
+            case PUBLISHED:
+                PublishedPostsFragment.getInstance().setStatus(index, percentUpload);
+                break;
+            case FAILED:
+                FailedPostsFragment.getInstance().setStatus(index, percentUpload);
+                break;
+        }
     }
 
     @Override
     protected URL doInBackground(Void... params) {
         try {
             Map<String, String> metadata = new HashMap<>();
-            metadata.put("filename", fileUpload.getGeneratedName());
+            metadata.put("filename", post.getFileUpload().getGeneratedName());
             upload.setMetadata(metadata);
 
             upload.getFingerprint();

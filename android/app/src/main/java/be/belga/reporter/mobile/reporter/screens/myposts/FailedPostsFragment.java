@@ -35,10 +35,10 @@ import belga.be.belgareporter.R;
  * Created by vinh.bui on 6/5/2018.
  */
 
-public class PostsFragment extends ReporterFragment {
-    private static final String TAG = PostsFragment.class.getSimpleName();
+public class FailedPostsFragment extends ReporterFragment {
+    private static final String TAG = FailedPostsFragment.class.getSimpleName();
 
-    private static PostsFragment instance;
+    private static FailedPostsFragment instance;
     private static Object mutex = new Object();
 
     private static final String PARAM_POSTS = "Slots";
@@ -61,16 +61,16 @@ public class PostsFragment extends ReporterFragment {
     //Upload File
     private UploadPort uploadPort;
 
-    public PostsFragment() {
+    public FailedPostsFragment() {
         // Required empty public constructor
     }
 
-    public static PostsFragment getInstance() {
+    public static FailedPostsFragment getInstance() {
         return instance;
     }
 
-    public static PostsFragment getInstance(List<Post> posts, String title, int emptyMessage) {
-        instance = new PostsFragment();
+    public static FailedPostsFragment getInstance(List<Post> posts, String title, int emptyMessage) {
+        instance = new FailedPostsFragment();
         final Bundle args = new Bundle();
         args.putString(PARAM_POSTS, new Gson().toJson(posts));
         args.putString(PARAM_TITLE, title);
@@ -173,7 +173,7 @@ public class PostsFragment extends ReporterFragment {
                         switch (index) {
                             case 0:
                                 PostManager.getInstance().removePost(posts.get(position));
-                                PostManager.getInstance().onPostsUpdated(PostsFragment.this, true);
+                                PostManager.getInstance().onPostsUpdated(FailedPostsFragment.this, true);
                                 Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_LONG).show();
                                 break;
                             case 1:
@@ -182,9 +182,9 @@ public class PostsFragment extends ReporterFragment {
 
                                 Post tPost = posts.get(position);
 
-                                PostManager.getInstance().onPostsUpdated(PostsFragment.this, true);
+                                PostManager.getInstance().onPostsUpdated(FailedPostsFragment.this, true);
 
-                                uploadPort = new UploadPort(getActivity(), PostsFragment.this, tPost);
+                                uploadPort = new UploadPort(getActivity(), FailedPostsFragment.this, tPost);
                                 uploadPort.execute(APIUrls.getPostUrl());
                                 break;
                         }
@@ -194,7 +194,7 @@ public class PostsFragment extends ReporterFragment {
                         switch (index) {
                             case 0:
                                 PostManager.getInstance().removePost(posts.get(position));
-                                PostManager.getInstance().onPostsUpdated(PostsFragment.this, true);
+                                PostManager.getInstance().onPostsUpdated(FailedPostsFragment.this, true);
                                 Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_LONG).show();
                                 break;
                         }
@@ -207,7 +207,7 @@ public class PostsFragment extends ReporterFragment {
                                 break;
                             case 1:
                                 PostManager.getInstance().removePost(posts.get(position));
-                                PostManager.getInstance().onPostsUpdated(PostsFragment.this, true);
+                                PostManager.getInstance().onPostsUpdated(FailedPostsFragment.this, true);
                                 Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_LONG).show();
                                 break;
                         }
@@ -227,7 +227,7 @@ public class PostsFragment extends ReporterFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        PostManager.getInstance().onPostsUpdated(PostsFragment.this, true);
+                        PostManager.getInstance().onPostsUpdated(FailedPostsFragment.this, true);
                     }
                 }, 3000);
             }

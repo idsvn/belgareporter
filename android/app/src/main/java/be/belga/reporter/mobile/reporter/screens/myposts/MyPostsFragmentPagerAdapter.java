@@ -1,10 +1,7 @@
 package be.belga.reporter.mobile.reporter.screens.myposts;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -44,27 +41,27 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
             case 0:
                 posts = PostManager.getInstance().getAllPosts();
                 emptyMessageResId = R.string.empty_post;
-                result = listFragments[position] = PostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = AllPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
                 break;
             case 1:
                 posts = PostManager.getInstance().getNewPost();
                 emptyMessageResId = R.string.empty_new_post;
-                result = listFragments[position] = PostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = NewPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
                 break;
             case 2:
                 posts = PostManager.getInstance().getInProgressPost();
                 emptyMessageResId = R.string.empty_in_progress_post;
-                result = listFragments[position] = PostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = InProgressPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
                 break;
             case 3:
                 posts = PostManager.getInstance().getPublishedPost();
                 emptyMessageResId = R.string.empty_published_post;
-                result = listFragments[position] = PostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = PublishedPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
                 break;
             case 4:
                 posts = PostManager.getInstance().getFailedPost();
                 emptyMessageResId = R.string.empty_failed_post;
-                result = listFragments[position] = PostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = FailedPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
                 break;
         }
 
@@ -79,21 +76,24 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
     @Override
     public void onPostsUpdated() {
         if (listFragments[0] != null)
-            ((PostsFragment) listFragments[0]).setPosts(PostManager.getInstance().getAllPosts());
+            ((AllPostsFragment) listFragments[0]).setPosts(PostManager.getInstance().getAllPosts());
         if (listFragments[1] != null)
-            ((PostsFragment) listFragments[1]).setPosts(PostManager.getInstance().getNewPost());
+            ((NewPostsFragment) listFragments[1]).setPosts(PostManager.getInstance().getNewPost());
         if (listFragments[2] != null)
-            ((PostsFragment) listFragments[2]).setPosts(PostManager.getInstance().getInProgressPost());
+            ((InProgressPostsFragment) listFragments[2]).setPosts(PostManager.getInstance().getInProgressPost());
         if (listFragments[3] != null)
-            ((PostsFragment) listFragments[3]).setPosts(PostManager.getInstance().getPublishedPost());
+            ((PublishedPostsFragment) listFragments[3]).setPosts(PostManager.getInstance().getPublishedPost());
         if (listFragments[4] != null)
-            ((PostsFragment) listFragments[4]).setPosts(PostManager.getInstance().getFailedPost());
+            ((FailedPostsFragment) listFragments[4]).setPosts(PostManager.getInstance().getFailedPost());
     }
 
     public ReporterFragment getFragment(int i) {
-
         if (i > listFragments.length) return null;
         return (ReporterFragment) listFragments[i];
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }

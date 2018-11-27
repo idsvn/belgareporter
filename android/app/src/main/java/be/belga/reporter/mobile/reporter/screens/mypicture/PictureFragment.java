@@ -44,7 +44,7 @@ import be.belga.reporter.mobile.reporter.model.FileUpload;
 import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
-import be.belga.reporter.mobile.reporter.screens.myposts.PostsFragment;
+import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
 import be.belga.reporter.mobile.reporter.service.UploadFile;
 import be.belga.reporter.mobile.reporter.service.UploadPort;
 import be.belga.reporter.utils.FileUtil;
@@ -454,7 +454,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
     }
 
     private List<Post> prepareSendData() {
-        PostsFragment fragment = (PostsFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments().get(0);
+        AllPostsFragment fragment = (AllPostsFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments().get(0);
         for (Post post : posts) {
             post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
             post.getMetadata().setId(null);
