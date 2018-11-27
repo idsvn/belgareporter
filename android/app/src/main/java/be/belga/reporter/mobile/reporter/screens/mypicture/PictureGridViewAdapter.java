@@ -115,20 +115,20 @@ public class PictureGridViewAdapter extends BaseAdapter {
         } else {
             FileUpload file = files.get(position);
             File imgFile = new File(file.getGeneratedUrl());
-
-            BitmapFactory.Options dimensions = new BitmapFactory.Options();
-            dimensions.inJustDecodeBounds = true;
-
-            Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), dimensions);
-            Bitmap bitmapImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-            v.layoutTxtPicture.setVisibility(View.VISIBLE);
-            v.imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
-
             switch (getItemViewType(position)) {
                 case TYPE_IMAGE:
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    opts.inJustDecodeBounds = true;
+                    BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+                    opts.inJustDecodeBounds = false; // This time it's for real!
+                    v.txtPicture.setText(file.getMimetype() + " - " + opts.outWidth + "x" + opts.outHeight);
+                    int sampleSize = calculateInSampleSize(opts, 500, 500); // Calculate your sampleSize here
+                    opts.inSampleSize = sampleSize;
+                    Bitmap bitmapImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+
+                    v.layoutTxtPicture.setVisibility(View.VISIBLE);
+                    v.imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
                     v.imgPicture.setImageBitmap(bitmapImage);
-                    v.txtPicture.setText(file.getMimetype() + " - " + dimensions.outWidth + "x" + dimensions.outHeight);
                     break;
                 case TYPE_VIDEO:
                     Bitmap thumb = ThumbnailUtils.createVideoThumbnail(file.getGeneratedUrl(), MediaStore.Images.Thumbnails.MINI_KIND);
@@ -165,4 +165,42 @@ public class PictureGridViewAdapter extends BaseAdapter {
         LinearLayout layoutTxtPicture;
         RelativeLayout layoutDeleteItem;
     }
+
+    //-------------Created by Tai 27/11/2018-------------//
+    public int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            inSampleSize = 2;
+        }
+        if (height > reqHeight + 500 || width > reqWidth + 500) {
+            inSampleSize = 3;
+        }
+        if (height > reqHeight + 1000 || width > reqWidth + 1000) {
+            inSampleSize = 4;
+        }
+        if (height > reqHeight + 1500 || width > reqWidth + 1500) {
+            inSampleSize = 5;
+        }
+        if (height > reqHeight + 2000 || width > reqWidth + 2000) {
+            inSampleSize = 6;
+        }
+        if (height > reqHeight + 2500 || width > reqWidth + 2500) {
+            inSampleSize = 7;
+        }
+        if (height > reqHeight + 3000 || width > reqWidth + 3000) {
+            inSampleSize = 8;
+        }
+        if (height > reqHeight + 3500 || width > reqWidth + 3500) {
+            inSampleSize = 9;
+        }
+        if (height > reqHeight + 4000 || width > reqWidth + 4000) {
+            inSampleSize = 10;
+        }
+        return inSampleSize;
+    }
+    //-------------Created by Tai 27/11/2018-------------//
 }

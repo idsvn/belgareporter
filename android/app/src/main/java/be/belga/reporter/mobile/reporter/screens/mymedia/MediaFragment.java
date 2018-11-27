@@ -1,6 +1,7 @@
 package be.belga.reporter.mobile.reporter.screens.mymedia;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -168,11 +169,14 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
     }
 
     private void chooseVideo() {
-        Intent intent = new Intent();
+//        Intent intent = new Intent();
+//        intent.setType("video/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+//        startActivityForResult(Intent.createChooser(intent, "Select Video"), ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        startActivityForResult(Intent.createChooser(intent, "Select Video"), ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
+        startActivityForResult(intent, ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
     }
 
     private void chooseAudio() {

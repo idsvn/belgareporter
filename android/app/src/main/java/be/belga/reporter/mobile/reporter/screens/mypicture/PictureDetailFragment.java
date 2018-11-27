@@ -646,24 +646,21 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
             case ReporterApplication.REQUEST_TAKE_PHOTO:
                 Uri selectedImage = Uri.parse("file:" + imageFilePath);
                 realPath = selectedImage.getPath();
-
                 break;
         }
-
         String mimeType = FileUtil.getMimeType(realPath);
         File imgOrg = new File(realPath);
 
         post.getFileUpload().setGeneratedName(imgOrg.getName());
         post.getFileUpload().setGeneratedUrl(realPath);
         post.getFileUpload().setMimetype(mimeType);
-        post.getFileUpload().setSize(mainActivity.getSizePicture(realPath));
+        post.getFileUpload().setSize(mainActivity.getSizePicture(realPath, mimeType));
 
         imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
 
         if (pictureFragment != null) {
             pictureFragment.updateFile(post.getFileUpload());
         }
-
     }
 
 }
