@@ -392,6 +392,29 @@ public class MainActivity extends AppCompatActivity {
         return imageInByte.length;
     }
 
+    //----------Edited by Tai 23/11/2018----------//
+    public long getSizePicture(String url,String typeFile) {
+        File imgFile = new File(url);
+
+        //-------------Tai-------------//
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        // Get bitmap dimensions before reading...
+        opts.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+        opts.inJustDecodeBounds = false; // This time it's for real!
+        int sampleSize = 1;
+        opts.inSampleSize = sampleSize;
+        Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+        //-------------Tai-------------//
+//        Bitmap bitmapOrg = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+//        Bitmap bitmap = bitmapOrg;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.valueOf(typeFile.substring(6).toUpperCase()),93, stream);
+        byte[] imageInByte = stream.toByteArray();
+        return imageInByte.length;
+    }
+    //----------------Edited by Tai-------------//
+
     public long getSizeVideo(String url) {
         File videoFile = new File(url);
         return videoFile.length();
