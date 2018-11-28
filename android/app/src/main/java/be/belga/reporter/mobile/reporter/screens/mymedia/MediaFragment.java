@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerTabStrip;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -259,8 +260,13 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
         } else {
             post.setType(Post.PostType.AUDIO.getStatus());
         }
+
         post.setCreateDate(new Date().getTime());
         post.setFileUpload(myFile);
+
+        if (post.getMetadata() == null) {
+            post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+        }
 
         posts.add(post);
 

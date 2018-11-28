@@ -68,7 +68,9 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
         try {
             post.setUser(ReporterApplication.getInstance().getUser());
             if (post.getFileUpload() != null) {
-                resumeUpload();
+                while (fileId == null) {
+                    resumeUpload();
+                }
                 post.getFileUpload().setId(fileId);
             }
             // build jsonObject
@@ -119,9 +121,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
             uploadFile = new UploadFile(activity, client, upload, post);
             uploadFile.execute(new Void[0]);
 
-            while (pathArr == null) {
-                pathArr = FileUtil.getTusURLStore(activity).get(upload.getFingerprint()).getPath().split(ReporterApplication.SLASH_CHARACTER);
-            }
+            pathArr = FileUtil.getTusURLStore(activity).get(upload.getFingerprint()).getPath().split(ReporterApplication.SLASH_CHARACTER);
 
             fileId = pathArr[pathArr.length - 1];
         } catch (Exception e) {
