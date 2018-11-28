@@ -71,8 +71,8 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                     resumeUpload();
                 }
                 post.getFileUpload().setId(Long.parseLong(fileId));
-                post.getMetadata().setId(null);
             }
+            post.getMetadata().setId(null);
             // build jsonObject
             String jsonStr = new Gson().toJson(post);
             final JSONObject jsonObject = new JSONObject(jsonStr);

@@ -245,19 +245,11 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
 
             File imgOrg = new File(realPath);
 
-<<<<<<< HEAD
-            myFile.setId(UUID.randomUUID().toString());
+            myFile.setStrId(UUID.randomUUID().toString());
             myFile.setGeneratedName(imgOrg.getName());
             myFile.setGeneratedUrl(realPath);
             myFile.setMimetype(mimeType);
             myFile.setSize(mainActivity.getSizeVideo(realPath));
-=======
-        myFile.setStrId(UUID.randomUUID().toString());
-        myFile.setGeneratedName(imgOrg.getName());
-        myFile.setGeneratedUrl(realPath);
-        myFile.setMimetype(mimeType);
-        myFile.setSize(mainActivity.getSizeVideo(realPath));
->>>>>>> a92387f8b1bb5cbfd5a61ea3f8f45ca713308af9
 
             files.add(myFile);
         } catch (Exception e) {

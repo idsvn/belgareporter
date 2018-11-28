@@ -95,6 +95,7 @@ public class PostManager {
         }
     }
 
+    //-----------Added by Tai 28/11/2018--------------//
     public void onPostUpdated(ReporterFragment fragment, boolean callback, Post post) {
         switch (post.getWorkflowStatus().getStatus()) {
             case "NEW":
@@ -128,6 +129,7 @@ public class PostManager {
             ft.detach(fragment).attach(fragment).commit();
         }
     }
+    //-----------Added by Tai 28/11/2018--------------//
 
     public void onPostsUpdatedListener(OnPostsUpdatedListener listener) {
         onPostsUpdatedListeners.add(new WeakReference<OnPostsUpdatedListener>(listener));
