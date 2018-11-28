@@ -1,7 +1,6 @@
 package be.belga.reporter.mobile.reporter.screens.mymedia;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -246,11 +245,19 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
 
             File imgOrg = new File(realPath);
 
+<<<<<<< HEAD
             myFile.setId(UUID.randomUUID().toString());
             myFile.setGeneratedName(imgOrg.getName());
             myFile.setGeneratedUrl(realPath);
             myFile.setMimetype(mimeType);
             myFile.setSize(mainActivity.getSizeVideo(realPath));
+=======
+        myFile.setStrId(UUID.randomUUID().toString());
+        myFile.setGeneratedName(imgOrg.getName());
+        myFile.setGeneratedUrl(realPath);
+        myFile.setMimetype(mimeType);
+        myFile.setSize(mainActivity.getSizeVideo(realPath));
+>>>>>>> a92387f8b1bb5cbfd5a61ea3f8f45ca713308af9
 
             files.add(myFile);
         } catch (Exception e) {
@@ -263,8 +270,13 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
         } else {
             post.setType(Post.PostType.AUDIO.getStatus());
         }
+
         post.setCreateDate(new Date().getTime());
         post.setFileUpload(myFile);
+
+        if (post.getMetadata().getId() == null) {
+            post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+        }
 
         posts.add(post);
 
@@ -285,7 +297,7 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
 
     public void updateFileMetadata(Post post) {
         for (int i = 0; i < posts.size(); i++) {
-            if (post.getFileUpload().getId().equals(posts.get(i).getFileUpload().getId())) {
+            if (post.getFileUpload().getStrId().equals(posts.get(i).getFileUpload().getStrId())) {
                 posts.set(i, post);
             }
         }
@@ -293,7 +305,7 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
 
     public void updateFile(FileUpload fileUpload) {
         for (int i = 0; i < files.size(); i++) {
-            if (fileUpload.getId().equals(files.get(i).getId())) {
+            if (fileUpload.getStrId().equals(files.get(i).getStrId())) {
                 files.set(i, fileUpload);
             }
         }

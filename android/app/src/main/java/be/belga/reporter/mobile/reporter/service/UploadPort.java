@@ -20,8 +20,7 @@ import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.network.HttpClient;
 import be.belga.reporter.mobile.reporter.network.ReporterJsonHttpResponseHandler;
 import be.belga.reporter.utils.FileUtil;
-import belga.be.belgareporter.R;
-import cz.msebera.android.httpclient.Header;
+import belga.be.belgareporter.R;import cz.msebera.android.httpclient.Header;
 import io.tus.android.client.TusAndroidUpload;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
@@ -68,8 +67,11 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
         try {
             post.setUser(ReporterApplication.getInstance().getUser());
             if (post.getFileUpload() != null) {
-                resumeUpload();
-                post.getFileUpload().setId(fileId);
+                while (fileId == null) {
+                    resumeUpload();
+                }
+                post.getFileUpload().setId(Long.parseLong(fileId));
+                post.getMetadata().setId(null);
             }
             // build jsonObject
             String jsonStr = new Gson().toJson(post);
@@ -119,9 +121,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
             uploadFile = new UploadFile(activity, client, upload, post);
             uploadFile.execute(new Void[0]);
 
-            while (pathArr == null) {
-                pathArr = FileUtil.getTusURLStore(activity).get(upload.getFingerprint()).getPath().split(ReporterApplication.SLASH_CHARACTER);
-            }
+            pathArr = FileUtil.getTusURLStore(activity).get(upload.getFingerprint()).getPath().split(ReporterApplication.SLASH_CHARACTER);
 
             fileId = pathArr[pathArr.length - 1];
         } catch (Exception e) {

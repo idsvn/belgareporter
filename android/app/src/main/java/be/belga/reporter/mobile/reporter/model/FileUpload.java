@@ -17,7 +17,8 @@ import java.util.Objects;
 @Keep
 public class FileUpload implements Serializable {
 
-    private String id;
+    private long id;
+    private String strId;
     private String generatedName;
     private String generatedUrl;
     private String mimetype;
@@ -28,12 +29,20 @@ public class FileUpload implements Serializable {
         return new LinkedList<>(Arrays.asList(files));
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public String getStrId() {
+        return strId;
+    }
+
+    public void setStrId(String strId) {
+        this.strId = strId;
     }
 
     public String getGeneratedName() {
@@ -73,19 +82,19 @@ public class FileUpload implements Serializable {
         if (this == o) return true;
         if (!(o instanceof FileUpload)) return false;
         FileUpload that = (FileUpload) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(strId, that.strId);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id);
+        return Objects.hash(strId);
     }
 
     @Override
     public String toString() {
         return "FileUpload{" +
-                "id='" + id + '\'' +
+                "strId='" + strId + '\'' +
                 ", generatedName='" + generatedName + '\'' +
                 ", generatedUrl='" + generatedUrl + '\'' +
                 ", mimetype='" + mimetype + '\'' +

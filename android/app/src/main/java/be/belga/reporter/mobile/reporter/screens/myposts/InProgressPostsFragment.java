@@ -42,7 +42,6 @@ public class InProgressPostsFragment extends ReporterFragment {
     private static Object mutex = new Object();
 
     private static final String PARAM_POSTS = "Slots";
-    private static final String PARAM_TITLE = "Title";
     private static final String PARAM_MESSAGE = "Message";
 
     private MainActivity mainActivity;
@@ -55,7 +54,6 @@ public class InProgressPostsFragment extends ReporterFragment {
     private boolean isLongClick = false;
 
     private List<Post> posts;
-    private String title;
     private int emptyMessage;
 
     //Upload File
@@ -69,11 +67,10 @@ public class InProgressPostsFragment extends ReporterFragment {
         return instance;
     }
 
-    public static InProgressPostsFragment getInstance(List<Post> posts, String title, int emptyMessage) {
+    public static InProgressPostsFragment getInstance(List<Post> posts, int emptyMessage) {
         instance = new InProgressPostsFragment();
         final Bundle args = new Bundle();
         args.putString(PARAM_POSTS, new Gson().toJson(posts));
-        args.putString(PARAM_TITLE, title);
         args.putInt(PARAM_MESSAGE, emptyMessage);
         instance.setArguments(args);
         return instance;
@@ -88,7 +85,6 @@ public class InProgressPostsFragment extends ReporterFragment {
         mainActivity = (MainActivity) getActivity();
 
         if (getArguments() != null) {
-            title = getArguments().getString(PARAM_TITLE);
             emptyMessage = getArguments().getInt(PARAM_MESSAGE);
             posts = Post.parseAllFromJSON(getArguments().getString(PARAM_POSTS));
         }
@@ -241,7 +237,6 @@ public class InProgressPostsFragment extends ReporterFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         mainActivity.setDrawerEnable(true);
-        mainActivity.setTitle(title);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -266,7 +261,6 @@ public class InProgressPostsFragment extends ReporterFragment {
     @Override
     protected HashMap<String, String> getAnalyticParameters() {
         HashMap<String, String> result = new HashMap<>();
-        result.put("tab", title);
         return result;
     }
 

@@ -256,6 +256,7 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
                     MetadataUtil.setValueSpinner(spnDistribution, cloneMetadata.getDistribition());
                     MetadataUtil.setValueSpinner(spnIPTC, cloneMetadata.getIptc());
                     MetadataUtil.setValueSpinner(spnLanguage, cloneMetadata.getLanguage());
+                    MetadataUtil.setValueSpinner(spnStatus, cloneMetadata.getStatus());
 
                     MetadataUtil.addMetadata(getActivity(), containerPackages, cloneMetadata.getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
                     MetadataUtil.addMetadata(getActivity(), containerAuthors, cloneMetadata.getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);
@@ -316,6 +317,7 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
         MetadataUtil.setValueSpinner(spnDistribution, ReporterApplication.getInstance().getUserMetadata().getDistribition());
         MetadataUtil.setValueSpinner(spnIPTC, ReporterApplication.getInstance().getUserMetadata().getIptc());
         MetadataUtil.setValueSpinner(spnLanguage, ReporterApplication.getInstance().getUserMetadata().getLanguage());
+        MetadataUtil.setValueSpinner(spnStatus, ReporterApplication.getInstance().getUserMetadata().getStatus());
 
         MetadataUtil.addMetadata(getActivity(), containerPackages, ReporterApplication.getInstance().getUserMetadata().getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
         MetadataUtil.addMetadata(getActivity(), containerAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);

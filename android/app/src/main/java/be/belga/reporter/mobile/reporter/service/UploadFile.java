@@ -44,20 +44,7 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
         NumberFormat formatter = new DecimalFormat("#0.00");
         String percentUpload = formatter.format((double) uploadedBytes / totalBytes * 100);
         AllPostsFragment.getInstance().setStatus(index, percentUpload);
-        switch (post.getWorkflowStatus()) {
-            case NEW:
-                NewPostsFragment.getInstance().setStatus(index, percentUpload);
-                break;
-            case IN_PROGRESS:
-                InProgressPostsFragment.getInstance().setStatus(index, percentUpload);
-                break;
-            case PUBLISHED:
-                PublishedPostsFragment.getInstance().setStatus(index, percentUpload);
-                break;
-            case FAILED:
-                FailedPostsFragment.getInstance().setStatus(index, percentUpload);
-                break;
-        }
+        InProgressPostsFragment.getInstance().setStatus(index, percentUpload);
     }
 
     @Override
