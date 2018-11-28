@@ -12,18 +12,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan
 public class ReporterWebMvcConfig implements WebMvcConfigurer {
 
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"/static/"};
-    
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-    	/*registry.addViewController("/");*/
-    	registry.addRedirectViewController("/", "/dashboard");
-    }
+	private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "/static/" };
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS).setCachePeriod(31556926);
-    }
-    
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		/* registry.addViewController("/"); */
+		registry.addRedirectViewController("/", "/dashboard");
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS).setCachePeriod(31556926);
+
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+	}
 
 }

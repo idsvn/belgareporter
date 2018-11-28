@@ -22,59 +22,60 @@ import be.belga.reporter.repository.PostRepository;
 @Controller
 @RequestMapping(value = "/dashboard")
 public class DashBoardController {
-	
+
 	@Autowired
-	PostRepository postRepository; 
-	
+	PostRepository postRepository;
+
 	@Autowired
 	FileUploadRepository fileUploadRepository;
 
 	@GetMapping(value = { "" })
 	public String index(Model model) {
-		
-		model.addAttribute("lstPost",postRepository.findAll());
+
+		model.addAttribute("lstPost", postRepository.findAll());
 		model.addAttribute("objPost", new Post());
 		return "home";
 	}
-	
+
 	@GetMapping("/edit/{idPost:[\\d]+}")
-	public String eit(@PathVariable(value = "idPost") Integer idPost , Model model) {
-		
-		if(idPost != null && idPost > 0) {
+	public String eit(@PathVariable(value = "idPost") Integer idPost, Model model) {
+
+		if (idPost != null && idPost > 0) {
 			Optional<Post> postOptional = postRepository.findById(idPost);
-			if(postOptional.isPresent()) {
-				
-				model.addAttribute("objPost",postOptional.get());
+			if (postOptional.isPresent()) {
+
+				model.addAttribute("objPost", postOptional.get());
 				return "editPost";
 			}
 		}
-		
+
 		return "redirect:/dashboard";
 	}
-	
+
 	@PostMapping("/delete")
-	public ResponseEntity<RestResponse<String>> delete(@RequestParam(value = "idPost") Integer idPost , Model model) {
-		
-		if(idPost != null && idPost > 0) {
+	public ResponseEntity<RestResponse<String>> delete(@RequestParam(value = "idPost") Integer idPost, Model model) {
+
+		if (idPost != null && idPost > 0) {
 			postRepository.deleteById(idPost);
-			return new ResponseEntity<>(new RestResponse<>(HttpStatus.OK.value(), "Delete Successful!!"), HttpStatus.OK);
+			return new ResponseEntity<>(new RestResponse<>(HttpStatus.OK.value(), "Delete Successful!!"),
+					HttpStatus.OK);
 		}
-		
-		return new ResponseEntity<>(new RestResponse<>(HttpStatus.NOT_FOUND.value(), "Delete Not Successful"), HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<>(new RestResponse<>(HttpStatus.NOT_FOUND.value(), "Delete Not Successful"),
+				HttpStatus.NOT_FOUND);
 	}
-	
+
 	@PostMapping("/update")
 	public String updatePost(@ModelAttribute("objPost") Post post) {
-		
-		if(postRepository.findById(post.getId()).isPresent()) {
+
+		if (postRepository.findById(post.getId()).isPresent()) {
 			Post postTemp = postRepository.findById(post.getId()).get();
 			postTemp.setTitle(post.getTitle());
 			postTemp.setTopic(post.getTopic());
 			postTemp.setBody(post.getBody());
 			postRepository.save(postTemp);
 		}
-		
-		
-		return "editPost";
+
+		return "redirect:/dashboard";
 	}
 }

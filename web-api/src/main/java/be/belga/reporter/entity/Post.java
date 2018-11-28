@@ -52,6 +52,8 @@ public class Post implements Serializable {
 
 	private String topic;
 
+	private String lead;
+
 	@Enumerated(EnumType.STRING)
 	private PostTypeEnum type;
 
@@ -161,6 +163,14 @@ public class Post implements Serializable {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public String getLead() {
+		return lead;
+	}
+
+	public void setLead(String lead) {
+		this.lead = lead;
 	}
 
 }
