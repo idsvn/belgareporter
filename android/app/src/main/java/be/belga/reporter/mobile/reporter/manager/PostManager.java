@@ -95,6 +95,40 @@ public class PostManager {
         }
     }
 
+    public void onPostUpdated(ReporterFragment fragment, boolean callback, Post post) {
+        switch (post.getWorkflowStatus().getStatus()) {
+            case "NEW":
+                newPost.add(post);
+                break;
+
+            case "INPROGRESS":
+                inProgressPost.add(post);
+                break;
+
+            case "PUBLISHED":
+                publishedPost.add(post);
+                break;
+
+            case "FAILED":
+                failedPost.add(post);
+                break;
+        }
+
+        List<WeakReference<OnPostsUpdatedListener>> listeners = onPostsUpdatedListeners;
+        for (int i = 0; i < listeners.size(); i++) {
+            OnPostsUpdatedListener curListener = listeners.get(i).get();
+            if (curListener == null) {
+                continue;
+            }
+            curListener.onPostsUpdated();
+        }
+
+        if (callback && fragment != null) {
+            FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.detach(fragment).attach(fragment).commit();
+        }
+    }
+
     public void onPostsUpdatedListener(OnPostsUpdatedListener listener) {
         onPostsUpdatedListeners.add(new WeakReference<OnPostsUpdatedListener>(listener));
     }

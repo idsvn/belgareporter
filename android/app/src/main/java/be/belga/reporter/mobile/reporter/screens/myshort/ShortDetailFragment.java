@@ -430,7 +430,8 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
         );
 
         ReporterApplication.getInstance().updatePost(index, post);
-        PostManager.getInstance().onPostsUpdated(this, false);
+//        PostManager.getInstance().onPostsUpdated(this, false);
+        PostManager.getInstance().onPostUpdated(this, false, post);
         mainActivity.hideSoftKeyboard(getActivity());
     }
 
