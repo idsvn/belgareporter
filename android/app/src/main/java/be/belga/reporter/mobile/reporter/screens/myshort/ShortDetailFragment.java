@@ -329,6 +329,7 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
                     MetadataUtil.setValueSpinner(spnDistribution, cloneMetadata.getDistribition());
                     MetadataUtil.setValueSpinner(spnIPTC, cloneMetadata.getIptc());
                     MetadataUtil.setValueSpinner(spnLanguage, cloneMetadata.getLanguage());
+                    MetadataUtil.setValueSpinner(spnStatus, cloneMetadata.getStatus());
 
                     MetadataUtil.addMetadata(getActivity(), containerPackages, cloneMetadata.getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
                     MetadataUtil.addMetadata(getActivity(), containerAuthors, cloneMetadata.getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);
@@ -472,6 +473,7 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
             MetadataUtil.setValueSpinner(spnDistribution, post.getMetadata().getDistribition());
             MetadataUtil.setValueSpinner(spnIPTC, post.getMetadata().getIptc());
             MetadataUtil.setValueSpinner(spnLanguage, post.getMetadata().getLanguage());
+            MetadataUtil.setValueSpinner(spnStatus, post.getMetadata().getStatus());
 
             if (post.getMetadata().getPackage_() != null) {
                 MetadataUtil.addMetadata(getActivity(), containerPackages, post.getMetadata().getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
@@ -512,6 +514,7 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
             MetadataUtil.setValueSpinner(spnDistribution, ReporterApplication.getInstance().getUserMetadata().getDistribition());
             MetadataUtil.setValueSpinner(spnIPTC, ReporterApplication.getInstance().getUserMetadata().getIptc());
             MetadataUtil.setValueSpinner(spnLanguage, ReporterApplication.getInstance().getUserMetadata().getLanguage());
+            MetadataUtil.setValueSpinner(spnStatus, ReporterApplication.getInstance().getUserMetadata().getStatus());
 
             MetadataUtil.addMetadata(getActivity(), containerPackages, ReporterApplication.getInstance().getUserMetadata().getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
             MetadataUtil.addMetadata(getActivity(), containerAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);

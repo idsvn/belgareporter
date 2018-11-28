@@ -41,27 +41,27 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
             case 0:
                 posts = PostManager.getInstance().getAllPosts();
                 emptyMessageResId = R.string.empty_post;
-                result = listFragments[position] = AllPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = AllPostsFragment.getInstance(posts, emptyMessageResId);
                 break;
             case 1:
                 posts = PostManager.getInstance().getNewPost();
                 emptyMessageResId = R.string.empty_new_post;
-                result = listFragments[position] = NewPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = NewPostsFragment.getInstance(posts, emptyMessageResId);
                 break;
             case 2:
                 posts = PostManager.getInstance().getInProgressPost();
                 emptyMessageResId = R.string.empty_in_progress_post;
-                result = listFragments[position] = InProgressPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = InProgressPostsFragment.getInstance(posts, emptyMessageResId);
                 break;
             case 3:
                 posts = PostManager.getInstance().getPublishedPost();
                 emptyMessageResId = R.string.empty_published_post;
-                result = listFragments[position] = PublishedPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = PublishedPostsFragment.getInstance(posts, emptyMessageResId);
                 break;
             case 4:
                 posts = PostManager.getInstance().getFailedPost();
                 emptyMessageResId = R.string.empty_failed_post;
-                result = listFragments[position] = FailedPostsFragment.getInstance(posts, "Posts", emptyMessageResId);
+                result = listFragments[position] = FailedPostsFragment.getInstance(posts, emptyMessageResId);
                 break;
         }
 
@@ -90,10 +90,5 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
     public ReporterFragment getFragment(int i) {
         if (i > listFragments.length) return null;
         return (ReporterFragment) listFragments[i];
-    }
-
-    @Override
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
     }
 }

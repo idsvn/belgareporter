@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.UUID;
 
 import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.model.Metadata;
@@ -33,6 +34,7 @@ public class MetadataUtil {
                                        String credit,
                                        String source,
                                        String comment) {
+        post.getMetadata().setId(UUID.randomUUID().toString());
         post.getMetadata().setPackage_(package_);
         post.getMetadata().setUrgency(urgency);
         post.getMetadata().setDistribition(distribition);
@@ -68,6 +70,7 @@ public class MetadataUtil {
                                        String credit,
                                        String source,
                                        String comment) {
+        metadata.setId(UUID.randomUUID().toString());
         metadata.setPackage_(package_);
         metadata.setUrgency(urgency);
         metadata.setDistribition(distribition);

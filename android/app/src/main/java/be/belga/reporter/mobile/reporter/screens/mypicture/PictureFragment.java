@@ -439,7 +439,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
         String mimeType = FileUtil.getMimeType(realPath);
         File imgOrg = new File(realPath);
 
-        myFile.setId(UUID.randomUUID().toString());
+        myFile.setStrId(UUID.randomUUID().toString());
         myFile.setGeneratedName(imgOrg.getName());
         myFile.setGeneratedUrl(imgOrg.getAbsolutePath());
         myFile.setMimetype(mimeType);
@@ -505,7 +505,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
 
     public void updateFileMetadata(Post post) {
         for (int i = 0; i < posts.size(); i++) {
-            if (post.getFileUpload().getId().equals(posts.get(i).getFileUpload().getId())) {
+            if (post.getFileUpload().getStrId().equals(posts.get(i).getFileUpload().getStrId())) {
                 posts.set(i, post);
             }
         }
@@ -513,7 +513,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
 
     public void updateFile(FileUpload fileUpload) {
         for (int i = 0; i < files.size(); i++) {
-            if (fileUpload.getId().equals(files.get(i).getId())) {
+            if (fileUpload.getStrId().equals(files.get(i).getStrId())) {
                 files.set(i, fileUpload);
             }
         }

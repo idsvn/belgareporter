@@ -20,8 +20,7 @@ import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.network.HttpClient;
 import be.belga.reporter.mobile.reporter.network.ReporterJsonHttpResponseHandler;
 import be.belga.reporter.utils.FileUtil;
-import belga.be.belgareporter.R;
-import cz.msebera.android.httpclient.Header;
+import belga.be.belgareporter.R;import cz.msebera.android.httpclient.Header;
 import io.tus.android.client.TusAndroidUpload;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
@@ -71,7 +70,8 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                 while (fileId == null) {
                     resumeUpload();
                 }
-                post.getFileUpload().setId(fileId);
+                post.getFileUpload().setId(Long.parseLong(fileId));
+                post.getMetadata().setId(null);
             }
             // build jsonObject
             String jsonStr = new Gson().toJson(post);
