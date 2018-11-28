@@ -78,7 +78,6 @@ public class PostManager {
                     failedPost.add(post);
                     break;
             }
-
         }
 
         List<WeakReference<OnPostsUpdatedListener>> listeners = onPostsUpdatedListeners;
