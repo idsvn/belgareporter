@@ -654,7 +654,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         post.getFileUpload().setGeneratedName(imgOrg.getName());
         post.getFileUpload().setGeneratedUrl(realPath);
         post.getFileUpload().setMimetype(mimeType);
-        post.getFileUpload().setSize(mainActivity.getSizePicture(realPath, mimeType));
+        post.getFileUpload().setSize(mainActivity.getSizePicture(realPath));
 
         imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
 

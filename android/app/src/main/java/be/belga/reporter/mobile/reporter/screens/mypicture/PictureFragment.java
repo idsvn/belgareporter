@@ -189,7 +189,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
                         String path;
                         path = files.get(i).getGeneratedUrl();
 
-                        files.get(i).setSize(mainActivity.getSizePicture(path, files.get(i).getMimetype()));
+                        files.get(i).setSize(mainActivity.getSizePicture(path));
 
                         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
                         post.setType(Post.PostType.PICTURE.getStatus());

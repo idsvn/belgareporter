@@ -118,13 +118,13 @@ public class PictureGridViewAdapter extends BaseAdapter {
             switch (getItemViewType(position)) {
                 case TYPE_IMAGE:
                     BitmapFactory.Options opts = new BitmapFactory.Options();
-                    opts.inJustDecodeBounds = true;
-                    BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
-                    opts.inJustDecodeBounds = false; // This time it's for real!
+//                    opts.inJustDecodeBounds = true;
+//                    BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+//                    opts.inJustDecodeBounds = false; // This time it's for real!
                     v.txtPicture.setText(file.getMimetype() + " - " + opts.outWidth + "x" + opts.outHeight);
-                    int sampleSize = calculateInSampleSize(opts, 500, 500); // Calculate your sampleSize here
-                    opts.inSampleSize = sampleSize;
-                    Bitmap bitmapImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
+//                    int sampleSize = calculateInSampleSize(opts, 500, 500); // Calculate your sampleSize here
+//                    opts.inSampleSize = sampleSize;
+                    Bitmap bitmapImage = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
                     v.layoutTxtPicture.setVisibility(View.VISIBLE);
                     v.imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
