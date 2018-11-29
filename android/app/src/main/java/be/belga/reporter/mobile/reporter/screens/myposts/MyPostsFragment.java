@@ -61,6 +61,10 @@ public class MyPostsFragment extends ReporterFragment {
                 if (adapter != null) {
                     ReporterFragment fragment = adapter.getFragment(position);
                     if (fragment != null) {
+                        for (int i = 0; i < adapter.getCount(); i++) {
+                            adapter.getFragment(i).setUserVisibleHint(false);
+                        }
+                        fragment.setUserVisibleHint(true);
                         PostManager manager = PostManager.getInstance();
                         manager.onPostsUpdated(MyPostsFragment.this, false);
                     }
