@@ -131,7 +131,9 @@ public class PostsListViewAdapter extends BaseAdapter {
                 v.videoPlayIcon.setVisibility(View.GONE);
 
                 Bitmap bitmapImage = BitmapFactory.decodeFile(fileUpload.getGeneratedUrl());
-                v.ivImg.setImageBitmap(bitmapImage);
+//                v.ivImg.setImageBitmap(bitmapImage);
+                Bitmap thumbImage = ThumbnailUtils.extractThumbnail(bitmapImage,128,128);
+                v.ivImg.setImageDrawable(new BitmapDrawable(context.getResources(), thumbImage));
                 break;
             case VIDEO:
                 v.imageContainer.setVisibility(View.VISIBLE);

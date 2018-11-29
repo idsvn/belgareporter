@@ -173,7 +173,7 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
 //        intent.setAction(Intent.ACTION_GET_CONTENT);
 //        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
 //        startActivityForResult(Intent.createChooser(intent, "Select Video"), ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
-        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
         startActivityForResult(intent, ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
     }
@@ -234,23 +234,27 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
         switch (requestCode) {
             case ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO:
                 realPath = RealPathUtil.getRealPath(getActivity(), data.getData());
-
                 break;
         }
 
         Post post = new Post();
         FileUpload myFile = new FileUpload();
 
-        String mimeType = FileUtil.getMimeType(realPath);
-        File imgOrg = new File(realPath);
+        try {
+            String mimeType = FileUtil.getMimeType(realPath);
 
-        myFile.setStrId(UUID.randomUUID().toString());
-        myFile.setGeneratedName(imgOrg.getName());
-        myFile.setGeneratedUrl(realPath);
-        myFile.setMimetype(mimeType);
-        myFile.setSize(mainActivity.getSizeVideo(realPath));
+            File imgOrg = new File(realPath);
 
-        files.add(myFile);
+            myFile.setStrId(UUID.randomUUID().toString());
+            myFile.setGeneratedName(imgOrg.getName());
+            myFile.setGeneratedUrl(realPath);
+            myFile.setMimetype(mimeType);
+            myFile.setSize(mainActivity.getSizeVideo(realPath));
+
+            files.add(myFile);
+        } catch (Exception e) {
+            Toast.makeText(this.getContext(), "This format video not support", Toast.LENGTH_SHORT).show();
+        }
 
         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
         if (title == R.string.video) {

@@ -363,6 +363,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
     }
 
     private void savePost() {
+        mainActivity.hideSoftKeyboard(getActivity());
         if (post.getId() == null) {
             post.setId(UUID.randomUUID().toString());
         }
@@ -394,11 +395,9 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
             pictureFragment.updateFileMetadata(post);
         } else {
             ReporterApplication.getInstance().updatePost(index, post);
-            PostManager.getInstance().onPostsUpdated(this, false);
-            mainActivity.hideSoftKeyboard(getActivity());
+//            PostManager.getInstance().onPostsUpdated(this, false);
+            PostManager.getInstance().onPostUpdated(this, false, post);
         }
-
-        mainActivity.hideSoftKeyboard(getActivity());
     }
 
     private void loadData() {
