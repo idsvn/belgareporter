@@ -27,7 +27,7 @@ public class Post implements Serializable {
     private String caption;
     private String lead;
     private String body;
-    private PostWorkflowStatus workflowStatus = PostWorkflowStatus.PUBLISHED;
+    private PostWorkflowStatus workflowStatus = PostWorkflowStatus.NEW;
     private Long createDate = new Date().getTime();
     private String type = PostType.SHORT.getStatus();
     private Metadata metadata = new Metadata();

@@ -20,7 +20,8 @@ import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.network.HttpClient;
 import be.belga.reporter.mobile.reporter.network.ReporterJsonHttpResponseHandler;
 import be.belga.reporter.utils.FileUtil;
-import belga.be.belgareporter.R;import cz.msebera.android.httpclient.Header;
+import belga.be.belgareporter.R;
+import cz.msebera.android.httpclient.Header;
 import io.tus.android.client.TusAndroidUpload;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
@@ -71,6 +72,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                     resumeUpload();
                 }
                 post.getFileUpload().setId(Long.parseLong(fileId));
+                post.getFileUpload().setStrId(null);
             }
             post.getMetadata().setId(null);
             // build jsonObject
@@ -83,7 +85,9 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                             try {
                                 JSONObject data = response.getJSONObject("data");
                                 Post post = new Gson().fromJson(data.toString(), Post.class);
+
                                 post.setWorkflowStatus(Post.PostWorkflowStatus.PUBLISHED);
+
                                 // store post into list page
                                 ReporterApplication.getInstance().updatePost(index, post);
                                 PostManager.getInstance().onPostsUpdated(fragment, true);
@@ -95,6 +99,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable error, JSONObject response) {
                             post.setWorkflowStatus(Post.PostWorkflowStatus.FAILED);
+
                             // store post into list page
                             ReporterApplication.getInstance().updatePost(index, post);
                             PostManager.getInstance().onPostsUpdated(fragment, true);
