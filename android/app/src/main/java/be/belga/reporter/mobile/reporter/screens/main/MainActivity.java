@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
     public void openShortDetailFragment(int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("ShortDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ShortDetailFragment shortDetailFrament = ShortDetailFragment.getInstance(title);
         ft.add(R.id.fragment_container, shortDetailFrament, "ShortDetailFragment");
@@ -262,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
     public void openShortDetailFragment(int title, Post post, int index) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("ShortDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ShortDetailFragment shortDetailFrament = ShortDetailFragment.getInstance(title, post, index);
         ft.add(R.id.fragment_container, shortDetailFrament, "ShortDetailFragment");
@@ -272,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
     public void openPictureFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("PictureFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         PictureFragment pictureFrament = PictureFragment.getInstance();
         ft.add(R.id.fragment_container, pictureFrament, "PictureFragment");
@@ -282,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
     public void openPictureDetailFragment(Post post, int index) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("PictureDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         PictureDetailFragment pictureDetailFragment = PictureDetailFragment.getInstance(post, index);
         ft.add(R.id.fragment_container, pictureDetailFragment, "PictureDetailFragment");
@@ -292,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
     public void openPictureDetailFragment(Post post) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("PictureDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         PictureDetailFragment pictureDetailFragment = PictureDetailFragment.getInstance(post);
         ft.add(R.id.fragment_container, pictureDetailFragment, "PictureDetailFragment");
@@ -302,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
     public void openMediaFragment(int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("MediaFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         MediaFragment mediaFragment = MediaFragment.getInstance(title);
         ft.add(R.id.fragment_container, mediaFragment, "MediaFragment");
@@ -312,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
     public void openMediaDetailFragment(Post post, int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("MediaDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         MediaDetailFragment videoDetailFrament = MediaDetailFragment.getInstance(post, title);
         ft.add(R.id.fragment_container, videoDetailFrament, "MediaDetailFragment");
@@ -322,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
     public void openMediaDetailFragment(Post post, int index, int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
         fm.popBackStack("MediaDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         MediaDetailFragment videoDetailFrament = MediaDetailFragment.getInstance(post, index, title);
         ft.add(R.id.fragment_container, videoDetailFrament, "MediaDetailFragment");

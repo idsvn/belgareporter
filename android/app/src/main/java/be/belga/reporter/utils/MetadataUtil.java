@@ -104,6 +104,10 @@ public class MetadataUtil {
                 }
             });
 
+            if(str.equals("")){
+                return;
+            }
+
             if (!stringList.contains(str)) {
                 stringList.add(str);
                 containerView.addView(selectionItem);
