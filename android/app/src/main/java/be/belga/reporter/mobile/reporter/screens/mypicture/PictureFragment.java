@@ -443,7 +443,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
         myFile.setGeneratedUrl(imgOrg.getAbsolutePath());
         myFile.setMimetype(mimeType);
         myFile.setSize(mainActivity.getSizePicture(realPath, myFile.getMimetype()));
-        
+
         files.add(myFile);
 
         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);

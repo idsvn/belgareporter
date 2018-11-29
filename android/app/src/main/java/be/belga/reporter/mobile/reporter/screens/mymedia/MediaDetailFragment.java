@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,8 +42,11 @@ import be.belga.reporter.mobile.reporter.application.ReporterFragment;
 import be.belga.reporter.mobile.reporter.manager.PostManager;
 import be.belga.reporter.mobile.reporter.model.Metadata;
 import be.belga.reporter.mobile.reporter.model.Post;
+import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
+import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
 import be.belga.reporter.mobile.reporter.screens.myshort.CustomSpinnerAdapter;
+import be.belga.reporter.mobile.reporter.service.UploadPort;
 import be.belga.reporter.utils.FileUtil;
 import be.belga.reporter.utils.MetadataUtil;
 import be.belga.reporter.utils.RealPathUtil;
@@ -56,6 +60,9 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     private static final String PARAM_TITLE = "Title";
 
     private MainActivity mainActivity;
+
+    private UploadPort uploadPort;
+
     private MediaFragment mediaFragment;
     private Menu menu;
 
@@ -372,6 +379,10 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
                     menu.findItem(R.id.copy_menu).setVisible(true);
                     menu.findItem(R.id.paste_menu).setVisible(false);
                     return true;
+                case R.id.send_menu:
+                    prepareSendData();
+                    getActivity().getSupportFragmentManager().popBackStackImmediate();
+                    return true;
                 case android.R.id.home:
                     savePost();
                     getActivity().getSupportFragmentManager().popBackStackImmediate();
@@ -395,13 +406,11 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     private void savePost() {
         if (post.getId() == null) {
             post.setId(UUID.randomUUID().toString());
-            post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
             if (title == R.string.video_detail) {
                 post.setType(Post.PostType.VIDEO.getStatus());
             } else {
                 post.setType(Post.PostType.AUDIO.getStatus());
             }
-            post.setCreateDate(new Date().getTime());
         }
 
         post.setTopic(edTopic.getText().toString());
@@ -639,5 +648,28 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
             mediaFragment.updateFile(post.getFileUpload());
         }
 
+    }
+
+    private Post prepareSendData() {
+        AllPostsFragment fragment = null;
+        for (Fragment f : getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments()) {
+            if (fragment instanceof AllPostsFragment) {
+                fragment = (AllPostsFragment) f;
+            }
+        }
+        post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+        post.getMetadata().setId(null);
+        post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
+        post.setId(null);
+
+        ReporterApplication.getInstance().addPost(post);
+
+        uploadPort = new UploadPort(getActivity(), fragment, post);
+        uploadPort.execute(APIUrls.getPostUrl());
+
+
+        PostManager.getInstance().onPostsUpdated(this, false);
+
+        return post;
     }
 }
