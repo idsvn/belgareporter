@@ -91,4 +91,5 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
         if (i > listFragments.length) return null;
         return (ReporterFragment) listFragments[i];
     }
+
 }

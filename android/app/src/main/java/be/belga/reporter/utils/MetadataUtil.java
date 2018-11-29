@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -104,18 +105,21 @@ public class MetadataUtil {
                 }
             });
 
-            if(str.equals("")){
+            if (str.equals("")) {
                 return;
             }
 
             if (!stringList.contains(str)) {
-                stringList.add(str);
-                containerView.addView(selectionItem);
+                if (!stringList.contains(str) && !str.isEmpty()) {
+                    stringList.add(str);
+                    containerView.addView(selectionItem);
+                }
             }
         }
     }
 
-    public static void addMetadata(Activity activity, final ViewGroup containerView, String tvText, String spnText, final List<String> stringList) {
+    public static void addMetadata(Activity activity, final ViewGroup containerView, String
+            tvText, String spnText, final List<String> stringList) {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         String str = tvText + "(" + spnText + ")";
@@ -130,11 +134,10 @@ public class MetadataUtil {
             }
         });
 
-        if (!stringList.contains(str)) {
+        if (!stringList.contains(str) && !str.isEmpty()) {
             stringList.add(str);
             containerView.addView(selectionItem);
         }
-
     }
 
     public static String getValueMetadata(ViewGroup containerView) {
@@ -170,5 +173,4 @@ public class MetadataUtil {
             }
         }
     }
-
 }
