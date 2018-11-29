@@ -75,15 +75,15 @@ public class MyPostsFragmentPagerAdapter extends FragmentStatePagerAdapter imple
 
     @Override
     public void onPostsUpdated() {
-        if (listFragments[0] != null)
+        if (listFragments[0] != null && listFragments[0].getUserVisibleHint())
             ((AllPostsFragment) listFragments[0]).setPosts(PostManager.getInstance().getAllPosts());
-        if (listFragments[1] != null)
+        if (listFragments[1] != null && listFragments[1].getUserVisibleHint())
             ((NewPostsFragment) listFragments[1]).setPosts(PostManager.getInstance().getNewPost());
-        if (listFragments[2] != null)
+        if (listFragments[2] != null && listFragments[2].getUserVisibleHint())
             ((InProgressPostsFragment) listFragments[2]).setPosts(PostManager.getInstance().getInProgressPost());
-        if (listFragments[3] != null)
+        if (listFragments[3] != null && listFragments[3].getUserVisibleHint())
             ((PublishedPostsFragment) listFragments[3]).setPosts(PostManager.getInstance().getPublishedPost());
-        if (listFragments[4] != null)
+        if (listFragments[4] != null && listFragments[4].getUserVisibleHint())
             ((FailedPostsFragment) listFragments[4]).setPosts(PostManager.getInstance().getFailedPost());
     }
 
