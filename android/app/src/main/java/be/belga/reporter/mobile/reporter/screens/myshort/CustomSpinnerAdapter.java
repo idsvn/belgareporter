@@ -39,7 +39,7 @@ public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
         txt.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         txt.setPadding(30, 8, 30, 8);
         txt.setBackgroundColor(Color.TRANSPARENT);
-        txt.setTextSize(13);
+        txt.setTextSize(11);
         txt.setText(asr[position]);
         txt.setTextColor(context.getResources().getColor(R.color.dim_gray));
         return txt;
@@ -49,7 +49,7 @@ public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
         TextView txt = new TextView(context);
         txt.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         txt.setPadding(30, 0, 15, 0);
-        txt.setTextSize(13);
+        txt.setTextSize(11);
         txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.intercom_expand_arrow, 0);
         txt.setText(asr[i]);
         txt.setTextColor(context.getResources().getColor(R.color.dim_gray));

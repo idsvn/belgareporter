@@ -123,73 +123,73 @@
 
     <!--Medatata Data-->
     <string-array name="metadata_packages_1">
-        <item>BTL</item>
-        <item>EXT</item>
-        <item>BIN</item>
-        <item>SPF</item>
-        <item>INT</item>
+        <item><b>BTL</b>BTL</item>
+        <item><b>EXT</b></item>
+        <item><b>BIN</b></item>
+        <item><b>SPF</b></item>
+        <item><b>INT</b></item>
     </string-array>
 
     <string-array name="metadata_packages_2">
-        <item>ALG</item>
-        <item>FINANCE</item>
-        <item>GEN</item>
-        <item>RES</item>
-        <item>UIT</item>
+        <item><b>ALG</b></item>
+        <item><b>FINANCE</b></item>
+        <item><b>GEN</b></item>
+        <item><b>RES</b></item>
+        <item><b>UIT</b></item>
     </string-array>
 
     <string-array name="metadata_urgency">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item><b>1</b></item>
+        <item><b>2</b></item>
+        <item><b>3</b></item>
+        <item><b>4</b></item>
+        <item><b>5</b></item>
     </string-array>
 
     <string-array name="metadata_distribution">
-        <item>Default</item>
-        <item>B</item>
+        <item><b>Default</b></item>
+        <item><b>B</b></item>
     </string-array>
 
     <string-array name="metadata_language">
-        <item>German</item>
-        <item>English</item>
-        <item>Spanish</item>
-        <item>French</item>
-        <item>Dutch</item>
+        <item><b>German</b></item>
+        <item><b>English</b></item>
+        <item><b>Spanish</b></item>
+        <item><b>French</b></item>
+        <item><b>Dutch</b></item>
     </string-array>
 
     <string-array name="metadata_iptc">
-        <item>Arts, Culture, Entertainment</item>
-        <item>Crime, Law, Justice</item>
-        <item>Disaster, Accidents</item>
-        <item>Economy, Business, Finance</item>
-        <item>Education</item>
-        <item>Environmental Issues</item>
-        <item>Health</item>
-        <item>Human Interest</item>
-        <item>Labour</item>
-        <item>Lifestyle, Leisure</item>
-        <item>Polotics</item>
-        <item>Religion, Belief</item>
-        <item>Science, Technology</item>
-        <item>Social Issues</item>
-        <item>Sport</item>
-        <item>Unrest, Conflcts, War</item>
-        <item>Weather</item>
+        <item><b>Arts, Culture, Entertainment</b></item>
+        <item><b>Crime, Law, Justice</b></item>
+        <item><b>Disaster, Accidents</b></item>
+        <item><b>Economy, Business, Finance</b></item>
+        <item><b>Education</b></item>
+        <item><b>Environmental Issues</b></item>
+        <item><b>Health</b></item>
+        <item><b>Human Interest</b></item>
+        <item><b>Labour</b></item>
+        <item><b>Lifestyle, Leisure</b></item>
+        <item><b>Polotics</b></item>
+        <item><b>Religion, Belief</b></item>
+        <item><b>Science, Technology</b></item>
+        <item><b>Social Issues</b></item>
+        <item><b>Sport</b></item>
+        <item><b>Unrest, Conflcts, War</b></item>
+        <item><b>Weather</b></item>
     </string-array>
 
     <string-array name="metadata_authors">
-        <item>AUTHOR</item>
-        <item>CORRESPONDENT</item>
-        <item>EDITOR</item>
+        <item><b>AUTHOR</b></item>
+        <item><b>CORRESPONDENT</b></item>
+        <item><b>EDITOR</b></item>
     </string-array>
 
     <string-array name="metadata_status">
-        <item>CANCELED</item>
-        <item>EMBARGOED</item>
-        <item>USABLE</item>
-        <item>WITHHELD</item>
+        <item><b>CANCELED</b></item>
+        <item><b>EMBARGOED</b></item>
+        <item><b>USABLE</b></item>
+        <item><b>WITHHELD</b></item>
     </string-array>
 
     <!-- FontAwesome -->

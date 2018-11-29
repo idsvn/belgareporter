@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -104,7 +105,7 @@ public class MetadataUtil {
                 }
             });
 
-            if (!stringList.contains(str)) {
+            if (!stringList.contains(str) && !str.isEmpty()) {
                 stringList.add(str);
                 containerView.addView(selectionItem);
             }
@@ -126,7 +127,7 @@ public class MetadataUtil {
             }
         });
 
-        if (!stringList.contains(str)) {
+        if (!stringList.contains(str)  && !str.isEmpty()) {
             stringList.add(str);
             containerView.addView(selectionItem);
         }
