@@ -318,6 +318,10 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
         MetadataUtil.setValueSpinner(spnIPTC, ReporterApplication.getInstance().getUserMetadata().getIptc());
         MetadataUtil.setValueSpinner(spnLanguage, ReporterApplication.getInstance().getUserMetadata().getLanguage());
         MetadataUtil.setValueSpinner(spnStatus, ReporterApplication.getInstance().getUserMetadata().getStatus());
+        //Added by Tai 29/11/2018
+//        MetadataUtil.setValueSpinner(spnPackages1, ReporterApplication.getInstance().getUserMetadata().get());
+//        MetadataUtil.setValueSpinner(spnPackages2, ReporterApplication.getInstance().getUserMetadata().getLanguage());
+        MetadataUtil.setValueSpinner(spnAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor());
 
         MetadataUtil.addMetadata(getActivity(), containerPackages, ReporterApplication.getInstance().getUserMetadata().getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
         MetadataUtil.addMetadata(getActivity(), containerAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);

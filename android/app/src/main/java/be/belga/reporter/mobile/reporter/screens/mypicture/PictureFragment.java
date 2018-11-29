@@ -183,20 +183,20 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
                     getActivity().getSupportFragmentManager().popBackStackImmediate();
                     return true;
                 case android.R.id.home:
-                    posts = new ArrayList<>();
-                    for (int i = 0; i < files.size(); i++) {
-                        Post post = new Post();
-                        String path;
-                        path = files.get(i).getGeneratedUrl();
-
-                        files.get(i).setSize(mainActivity.getSizePicture(path));
-
-                        post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
-                        post.setType(Post.PostType.PICTURE.getStatus());
-                        post.setCreateDate(new Date().getTime());
-                        post.setFileUpload(files.get(i));
-                        posts.add(post);
-                    }
+//                    posts = new ArrayList<>();
+//                    for (int i = 0; i < files.size(); i++) {
+//                        Post post = new Post();
+//                        String path;
+//                        path = files.get(i).getGeneratedUrl();
+//
+//                        files.get(i).setSize(mainActivity.getSizePicture(path));
+//
+//                        post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
+//                        post.setType(Post.PostType.PICTURE.getStatus());
+//                        post.setCreateDate(new Date().getTime());
+//                        post.setFileUpload(files.get(i));
+//                        posts.add(post);
+//                    }
 
                     addNewPost();
                     mainActivity.getSupportFragmentManager().popBackStackImmediate();
@@ -443,8 +443,8 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
         myFile.setGeneratedName(imgOrg.getName());
         myFile.setGeneratedUrl(imgOrg.getAbsolutePath());
         myFile.setMimetype(mimeType);
-////        myFile.setSize(mainActivity.getSizePicture(realPath));
-//        myFile.setSize(mainActivity.getSizePicture(realPath,myFile.getMimetype()));
+//        myFile.setSize(mainActivity.getSizePicture(realPath));
+        myFile.setSize(mainActivity.getSizePicture(realPath,myFile.getMimetype()));
         files.add(myFile);
 
         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
