@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
     public void openShortDetailFragment(int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
+        ft.setCustomAnimations(R.anim.push_right_enter,R.anim.push_right_exit);//RIGHT TO LEFT
         fm.popBackStack("ShortDetailFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ShortDetailFragment shortDetailFrament = ShortDetailFragment.getInstance(title);
         ft.add(R.id.fragment_container, shortDetailFrament, "ShortDetailFragment");
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
     public void openPictureFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
+        ft.setCustomAnimations(R.anim.push_right_enter,R.anim.push_right_exit);//RIGHT TO LEFT
         fm.popBackStack("PictureFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         PictureFragment pictureFrament = PictureFragment.getInstance();
         ft.add(R.id.fragment_container, pictureFrament, "PictureFragment");
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
     public void openMediaFragment(int title) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.push_left_enter,R.anim.push_left_exit);
+        ft.setCustomAnimations(R.anim.push_right_enter,R.anim.push_right_exit);//RIGHT TO LEFT
         fm.popBackStack("MediaFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         MediaFragment mediaFragment = MediaFragment.getInstance(title);
         ft.add(R.id.fragment_container, mediaFragment, "MediaFragment");
@@ -350,6 +350,7 @@ public class MainActivity extends AppCompatActivity {
     public void openMyProfileFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.push_right_enter,R.anim.push_right_exit);//RIGHT TO LEFT
         fm.popBackStack("MyProfileFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         MyProfileFragment myProfileFragment = MyProfileFragment.getInstance();
         ft.add(R.id.fragment_container, myProfileFragment, "MyProfileFragment");
