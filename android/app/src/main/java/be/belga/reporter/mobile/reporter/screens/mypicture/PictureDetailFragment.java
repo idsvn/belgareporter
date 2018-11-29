@@ -395,8 +395,8 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
             pictureFragment.updateFileMetadata(post);
         } else {
             ReporterApplication.getInstance().updatePost(index, post);
-//            PostManager.getInstance().onPostsUpdated(this, false);
-            PostManager.getInstance().onPostUpdated(this, false, post);
+            PostManager.getInstance().onPostsUpdated(this, false);
+//            PostManager.getInstance().onPostUpdated(this, false, post);
         }
     }
 
