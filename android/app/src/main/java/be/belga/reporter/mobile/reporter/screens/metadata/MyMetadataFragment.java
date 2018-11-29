@@ -200,14 +200,37 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
                     return true;
                 case R.id.copy_menu:
                     cloneMetadata = new Metadata();
+//                    MetadataUtil.setDataMetadata(cloneMetadata,
+//                            MetadataUtil.getValueMetadata(containerPackages),
+//                            spnUrgency.getSelectedItem().toString(),
+//                            spnDistribution.getSelectedItem().toString(),
+//                            spnLanguage.getSelectedItem().toString(),
+//                            edKeywords.getText().toString(),
+//                            spnIPTC.getSelectedItem().toString(),
+//                            MetadataUtil.getValueMetadata(containerAuthors),
+//                            edLabel.getText().toString(),
+//                            spnStatus.getSelectedItem().toString(),
+//                            edCity.getText().toString(),
+//                            edCountry.getText().toString(),
+//                            edEditorial.getText().toString(),
+//                            edInfo.getText().toString(),
+//                            edCredit.getText().toString(),
+//                            edSource.getText().toString(),
+//                            edComment.getText().toString()
+//                    );
+                    //Added by Tai
                     MetadataUtil.setDataMetadata(cloneMetadata,
                             MetadataUtil.getValueMetadata(containerPackages),
+                            spnPackages1.getSelectedItem().toString(),
+                            spnPackages2.getSelectedItem().toString(),
                             spnUrgency.getSelectedItem().toString(),
                             spnDistribution.getSelectedItem().toString(),
                             spnLanguage.getSelectedItem().toString(),
                             edKeywords.getText().toString(),
                             spnIPTC.getSelectedItem().toString(),
                             MetadataUtil.getValueMetadata(containerAuthors),
+                            edAuthors.getText().toString(),
+                            spnAuthors.getSelectedItem().toString(),
                             edLabel.getText().toString(),
                             spnStatus.getSelectedItem().toString(),
                             edCity.getText().toString(),
@@ -312,6 +335,7 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
         edCredit.setText(ReporterApplication.getInstance().getUserMetadata().getCredit());
         edSource.setText(ReporterApplication.getInstance().getUserMetadata().getSource());
         edComment.setText(ReporterApplication.getInstance().getUserMetadata().getComment());
+        edAuthors.setText(ReporterApplication.getInstance().getUserMetadata().getAuthor_tv());//Added by Tai
 
         MetadataUtil.setValueSpinner(spnUrgency, ReporterApplication.getInstance().getUserMetadata().getUrgency());
         MetadataUtil.setValueSpinner(spnDistribution, ReporterApplication.getInstance().getUserMetadata().getDistribition());
@@ -319,23 +343,46 @@ public class MyMetadataFragment extends ReporterFragment implements MainActivity
         MetadataUtil.setValueSpinner(spnLanguage, ReporterApplication.getInstance().getUserMetadata().getLanguage());
         MetadataUtil.setValueSpinner(spnStatus, ReporterApplication.getInstance().getUserMetadata().getStatus());
         //Added by Tai 29/11/2018
-//        MetadataUtil.setValueSpinner(spnPackages1, ReporterApplication.getInstance().getUserMetadata().get());
-//        MetadataUtil.setValueSpinner(spnPackages2, ReporterApplication.getInstance().getUserMetadata().getLanguage());
-        MetadataUtil.setValueSpinner(spnAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor());
+        MetadataUtil.setValueSpinner(spnPackages1, ReporterApplication.getInstance().getUserMetadata().getPackage_1());
+        MetadataUtil.setValueSpinner(spnPackages2, ReporterApplication.getInstance().getUserMetadata().getPackage_2());
+        MetadataUtil.setValueSpinner(spnAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor_sp());
 
         MetadataUtil.addMetadata(getActivity(), containerPackages, ReporterApplication.getInstance().getUserMetadata().getPackage_().split(ReporterApplication.SEMICOLON_CHARACTER), packagesLst);
         MetadataUtil.addMetadata(getActivity(), containerAuthors, ReporterApplication.getInstance().getUserMetadata().getAuthor().split(ReporterApplication.SEMICOLON_CHARACTER), authorsLst);
     }
 
     private void updateMetadata() {
+//        MetadataUtil.setDataMetadata(mMetadata,
+//                MetadataUtil.getValueMetadata(containerPackages),
+//                spnUrgency.getSelectedItem().toString(),
+//                spnDistribution.getSelectedItem().toString(),
+//                spnLanguage.getSelectedItem().toString(),
+//                edKeywords.getText().toString(),
+//                spnIPTC.getSelectedItem().toString(),
+//                MetadataUtil.getValueMetadata(containerAuthors),
+//                edLabel.getText().toString(),
+//                spnStatus.getSelectedItem().toString(),
+//                edCity.getText().toString(),
+//                edCountry.getText().toString(),
+//                edEditorial.getText().toString(),
+//                edInfo.getText().toString(),
+//                edCredit.getText().toString(),
+//                edSource.getText().toString(),
+//                edComment.getText().toString()
+//        );
+        //Added by Tai
         MetadataUtil.setDataMetadata(mMetadata,
                 MetadataUtil.getValueMetadata(containerPackages),
+                spnPackages1.getSelectedItem().toString(),
+                spnPackages2.getSelectedItem().toString(),
                 spnUrgency.getSelectedItem().toString(),
                 spnDistribution.getSelectedItem().toString(),
                 spnLanguage.getSelectedItem().toString(),
                 edKeywords.getText().toString(),
                 spnIPTC.getSelectedItem().toString(),
                 MetadataUtil.getValueMetadata(containerAuthors),
+                edAuthors.getText().toString(),
+                spnAuthors.getSelectedItem().toString(),
                 edLabel.getText().toString(),
                 spnStatus.getSelectedItem().toString(),
                 edCity.getText().toString(),

@@ -294,7 +294,6 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
                             edSource.getText().toString(),
                             edComment.getText().toString()
                     );
-
                     ReporterApplication.getInstance().createMetadata(cloneMetadata);
                     menu.findItem(R.id.copy_menu).setVisible(false);
                     menu.findItem(R.id.paste_menu).setVisible(true);
