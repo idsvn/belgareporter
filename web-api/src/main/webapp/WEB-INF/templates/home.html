@@ -108,9 +108,10 @@
                       <td th:text="(${post?.fileUpload?.size?: '0'}) + ' MB'">0</td>
                       <td>
                       	<a th:href="@{/dashboard/edit/} + ${post.id}">edit</a> |
-                      	<a href="#">published</a> |
-                      	<a href="#">download</a> |
-                      	<a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a>
+<!--                       	<a href="#">published</a> | -->
+<!--                       	<a href="#">download</a> | -->
+                      	<!-- <a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a> -->
+                      	<a href="#" class="confirm-delete" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a>
                       </td>
                     </tr>
                   </tbody>
@@ -191,9 +192,23 @@
 	    
 	} );
 	
+	$('.confirm-delete').on('click', function(e) {
+	    e.preventDefault();
+	
+	    var id = $(this).attr('data');
+	    
+	    console.log('id2 = ' + id);
+	    
+	    $('#deleteModal').data('id', id).modal('show');
+	});
+	
 	function deletePost(){
 		
-		let id = $('#deletePost').attr('data');
+		// var id = $('#deletePost').attr('data');
+		var id = $('#deleteModal').data('id');
+		
+		console.log('id3 = ' + id);
+		
 		$.post("./dashboard/delete",
     	{
 			idPost: id,

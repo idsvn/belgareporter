@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -300,6 +301,26 @@ public class AllPostsFragment extends ReporterFragment {
             @Override
             public void run() {
                 ((TextView) finalV.findViewById(R.id.txtview_status)).setText(status + "%");
+            }
+        });
+
+    }
+
+    public void setStatus(int index, final String status, final int iconResource) {
+        View v = swipeMenuLstPosts.getChildAt(index - swipeMenuLstPosts.getFirstVisiblePosition());
+
+        if (v == null) {
+            adapter.setPosts(ReporterApplication.getInstance().getPosts());
+            swipeMenuLstPosts.setAdapter(adapter);
+            v = swipeMenuLstPosts.getAdapter().getView(index, null, swipeMenuLstPosts);
+        }
+
+        final View finalV = v;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView) finalV.findViewById(R.id.txtview_status)).setText(status);
+                ((ImageView) finalV.findViewById(R.id.imageview_status_icon)).setImageResource(iconResource);
             }
         });
 

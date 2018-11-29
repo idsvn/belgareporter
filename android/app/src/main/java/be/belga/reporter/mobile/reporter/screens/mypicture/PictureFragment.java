@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
@@ -45,7 +46,6 @@ import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
 import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
-import be.belga.reporter.mobile.reporter.service.UploadFile;
 import be.belga.reporter.mobile.reporter.service.UploadPort;
 import be.belga.reporter.utils.FileUtil;
 import be.belga.reporter.utils.RealPathUtil;
@@ -60,7 +60,6 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
     private MainActivity mainActivity;
 
     private UploadPort uploadPort;
-    private UploadFile uploadFile;
 
     private Menu menu;
     private BottomSheetDialog dialog;
@@ -443,8 +442,8 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
         myFile.setGeneratedName(imgOrg.getName());
         myFile.setGeneratedUrl(imgOrg.getAbsolutePath());
         myFile.setMimetype(mimeType);
-//        myFile.setSize(mainActivity.getSizePicture(realPath));
-        myFile.setSize(mainActivity.getSizePicture(realPath,myFile.getMimetype()));
+        myFile.setSize(mainActivity.getSizePicture(realPath, myFile.getMimetype()));
+
         files.add(myFile);
 
         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
@@ -467,7 +466,12 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
     }
 
     private List<Post> prepareSendData() {
-        AllPostsFragment fragment = (AllPostsFragment) getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments().get(0);
+        AllPostsFragment fragment = null;
+        for (Fragment f : getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments()) {
+            if (fragment instanceof AllPostsFragment) {
+                fragment = (AllPostsFragment) f;
+            }
+        }
         for (Post post : posts) {
             post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
             post.getMetadata().setId(null);
@@ -478,24 +482,12 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
 
             uploadPort = new UploadPort(getActivity(), fragment, post);
             uploadPort.execute(APIUrls.getPostUrl());
-//            resumeUpload(post);
         }
 
         PostManager.getInstance().onPostsUpdated(this, false);
 
         return posts;
     }
-
-//    private void resumeUpload(Post post) {
-////        try {
-////            String[] pathArr = null;
-////            TusUpload upload = new TusAndroidUpload(FileUtil.getImageContentUri(getActivity(), new File(post.getFileUpload().getGeneratedUrl()), post.getType().getStatus()), getActivity());
-////            uploadFile = new UploadFile(getActivity(), FileUtil.getTusClient(getActivity()), upload, post.getFileUpload(), post);
-////            uploadFile.execute(new Void[0]);
-////        } catch (Exception e) {
-////            Log.e(getActivity().getLocalClassName(), e.getMessage(), e);
-////        }
-////    }
 
     @Override
     public void onBackPressed() {

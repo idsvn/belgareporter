@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,8 +31,11 @@ import be.belga.reporter.mobile.reporter.application.ReporterFragment;
 import be.belga.reporter.mobile.reporter.manager.PostManager;
 import be.belga.reporter.mobile.reporter.model.FileUpload;
 import be.belga.reporter.mobile.reporter.model.Post;
+import be.belga.reporter.mobile.reporter.network.APIUrls;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
 import be.belga.reporter.mobile.reporter.screens.mypicture.PictureGridViewAdapter;
+import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
+import be.belga.reporter.mobile.reporter.service.UploadPort;
 import be.belga.reporter.utils.FileUtil;
 import be.belga.reporter.utils.RealPathUtil;
 import belga.be.belgareporter.R;
@@ -42,6 +46,8 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
     private static final String PARAM_TITLE = "Title";
 
     private MainActivity mainActivity;
+
+    private UploadPort uploadPort;
 
     private List<FileUpload> files;
     private List<Post> posts;
@@ -145,6 +151,8 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
         if (mainActivity.isFragmentOnTop(this)) {
             switch (item.getItemId()) {
                 case R.id.send_menu:
+                    prepareSendData();
+                    getActivity().getSupportFragmentManager().popBackStackImmediate();
                     return true;
 
                 case android.R.id.home:
@@ -168,11 +176,6 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
     }
 
     private void chooseVideo() {
-//        Intent intent = new Intent();
-//        intent.setType("video/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-//        startActivityForResult(Intent.createChooser(intent, "Select Video"), ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
         startActivityForResult(intent, ReporterApplication.REQUEST_TAKE_GALLERY_VIDEO);
@@ -279,6 +282,30 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
         ReporterApplication.getInstance().addPost(posts);
         PostManager.getInstance().onPostsUpdated(this, false);
         mainActivity.hideSoftKeyboard(getActivity());
+    }
+
+    private List<Post> prepareSendData() {
+        AllPostsFragment fragment = null;
+        for (Fragment f : getActivity().getSupportFragmentManager().findFragmentByTag("MyPostsFragment").getChildFragmentManager().getFragments()) {
+            if (fragment instanceof AllPostsFragment) {
+                fragment = (AllPostsFragment) f;
+            }
+        }
+        for (Post post : posts) {
+            post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+            post.getMetadata().setId(null);
+            post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
+            post.setId(null);
+
+            ReporterApplication.getInstance().addPost(post);
+
+            uploadPort = new UploadPort(getActivity(), fragment, post);
+            uploadPort.execute(APIUrls.getPostUrl());
+        }
+
+        PostManager.getInstance().onPostsUpdated(this, false);
+
+        return posts;
     }
 
     @Override

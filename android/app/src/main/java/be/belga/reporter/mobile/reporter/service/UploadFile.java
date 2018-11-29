@@ -14,10 +14,7 @@ import java.util.Map;
 import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
-import be.belga.reporter.mobile.reporter.screens.myposts.FailedPostsFragment;
 import be.belga.reporter.mobile.reporter.screens.myposts.InProgressPostsFragment;
-import be.belga.reporter.mobile.reporter.screens.myposts.NewPostsFragment;
-import be.belga.reporter.mobile.reporter.screens.myposts.PublishedPostsFragment;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
 import io.tus.java.client.TusUploader;
@@ -45,6 +42,19 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
         String percentUpload = formatter.format((double) uploadedBytes / totalBytes * 100);
         AllPostsFragment.getInstance().setStatus(index, percentUpload);
         InProgressPostsFragment.getInstance().setStatus(index, percentUpload);
+    }
+
+    @Override
+    protected void onPostExecute(URL url) {
+        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.PUBLISHED)) {
+            AllPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.PUBLISHED.getStatus(), Post.PostWorkflowStatus.PUBLISHED.getIconResource());
+            InProgressPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.PUBLISHED.getStatus(), Post.PostWorkflowStatus.PUBLISHED.getIconResource());
+        }
+
+        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.FAILED)) {
+            AllPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.FAILED.getStatus(), Post.PostWorkflowStatus.FAILED.getIconResource());
+            InProgressPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.FAILED.getStatus(), Post.PostWorkflowStatus.FAILED.getIconResource());
+        }
     }
 
     @Override

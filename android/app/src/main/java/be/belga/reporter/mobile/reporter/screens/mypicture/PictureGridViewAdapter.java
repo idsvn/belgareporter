@@ -137,9 +137,9 @@ public class PictureGridViewAdapter extends BaseAdapter {
                     break;
                 case TYPE_AUDIO:
                     IconTextView tv = new IconTextView(activity);
-                    tv.setText(activity.getString(R.string.audio_icon));
+                    tv.setText(activity.getString(R.string.audio_circle_icon));
                     tv.setTextColor(activity.getResources().getColor(R.color.nobel));
-                    tv.setTextSize(100);
+                    tv.setTextSize(80);
                     tv.setDrawingCacheEnabled(true);
                     tv.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                     tv.layout(0, 0, v.imgPicture.getLayoutParams().width / 2, v.imgPicture.getLayoutParams().height / 2);
