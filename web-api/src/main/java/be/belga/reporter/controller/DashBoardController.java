@@ -1,8 +1,10 @@
 package be.belga.reporter.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,8 +34,11 @@ public class DashBoardController {
 	@GetMapping(value = { "" })
 	public String index(Model model) {
 
-		model.addAttribute("lstPost", postRepository.findAll());
+		List<Post> posts = postRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+
+		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
+
 		return "home";
 	}
 
@@ -56,7 +61,9 @@ public class DashBoardController {
 	public ResponseEntity<RestResponse<String>> delete(@RequestParam(value = "idPost") Integer idPost, Model model) {
 
 		if (idPost != null && idPost > 0) {
+
 			postRepository.deleteById(idPost);
+
 			return new ResponseEntity<>(new RestResponse<>(HttpStatus.OK.value(), "Delete Successful!!"),
 					HttpStatus.OK);
 		}
@@ -69,9 +76,12 @@ public class DashBoardController {
 	public String updatePost(@ModelAttribute("objPost") Post post) {
 
 		if (postRepository.findById(post.getId()).isPresent()) {
+
 			Post postTemp = postRepository.findById(post.getId()).get();
+
 			postTemp.setTitle(post.getTitle());
 			postTemp.setTopic(post.getTopic());
+			postTemp.setLead(post.getLead());
 			postTemp.setBody(post.getBody());
 
 			postRepository.save(postTemp);
