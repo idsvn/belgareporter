@@ -73,6 +73,7 @@ public class DashBoardController {
 			postTemp.setTitle(post.getTitle());
 			postTemp.setTopic(post.getTopic());
 			postTemp.setBody(post.getBody());
+
 			postRepository.save(postTemp);
 		}
 
