@@ -54,7 +54,7 @@ public class Post implements Serializable {
 	private String topic;
 
 	private String lead;
-	
+
 	@Transient
 	private String size;
 
@@ -184,5 +184,5 @@ public class Post implements Serializable {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	
+
 }
