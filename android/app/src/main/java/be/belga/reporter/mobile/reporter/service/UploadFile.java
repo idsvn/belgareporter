@@ -15,6 +15,7 @@ import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.model.Post;
 import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
 import be.belga.reporter.mobile.reporter.screens.myposts.InProgressPostsFragment;
+import be.belga.reporter.utils.FileUtil;
 import io.tus.java.client.TusClient;
 import io.tus.java.client.TusUpload;
 import io.tus.java.client.TusUploader;
@@ -62,6 +63,7 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
         try {
             Map<String, String> metadata = new HashMap<>();
             metadata.put("filename", post.getFileUpload().getGeneratedName());
+            metadata.put("filesize", FileUtil.getStringSizeLengthFile(post.getFileUpload().getSize()));
             upload.setMetadata(metadata);
 
             upload.getFingerprint();

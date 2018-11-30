@@ -53,9 +53,10 @@ class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileUpload createFile(String originalName) {
+    public FileUpload createFile(String originalName, int fileSize) {
         FileUpload fileUpload = new FileUpload();
         fileUpload.setOriginalName(originalName);
+        fileUpload.setSize(fileSize);
         fileUploadRepository.save(fileUpload);
         String generatedName = fileUpload.getId() + " - " + originalName;
         fileUpload.setGeneratedName(generatedName);
@@ -97,6 +98,7 @@ class FileServiceImpl implements FileService {
                 }
             }
         } else if (offset == 0) {
+        	Files.createDirectories(filePath.getParent());
             Files.copy(inputStream, filePath);
         } else {
             throw new FileOffsetConflict("Offset must be zero for new file");
