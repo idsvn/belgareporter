@@ -26,6 +26,8 @@ import be.belga.reporter.mobile.views.IconTextView;
 import be.belga.reporter.utils.FileUtil;
 import belga.be.belgareporter.R;
 
+import static be.belga.reporter.utils.FileUtil.setRotate;
+
 public class PictureGridViewAdapter extends BaseAdapter {
     private static final int TYPE_COUNT = 3;
     private static final int TYPE_IMAGE = 0;
@@ -128,7 +130,7 @@ public class PictureGridViewAdapter extends BaseAdapter {
 
                     v.layoutTxtPicture.setVisibility(View.VISIBLE);
                     v.imgPicture.setScaleType(ImageView.ScaleType.FIT_XY);
-                    v.imgPicture.setImageBitmap(bitmapImage);
+                    v.imgPicture.setImageBitmap(setRotate(bitmapImage,imgFile.getAbsolutePath()));//Added by Tai 30/11/2018
                     break;
                 case TYPE_VIDEO:
                     Bitmap thumb = ThumbnailUtils.createVideoThumbnail(file.getGeneratedUrl(), MediaStore.Images.Thumbnails.MINI_KIND);

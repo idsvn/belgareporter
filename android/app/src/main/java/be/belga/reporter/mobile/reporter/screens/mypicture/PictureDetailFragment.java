@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -58,6 +60,8 @@ import be.belga.reporter.utils.MetadataUtil;
 import be.belga.reporter.utils.RealPathUtil;
 import belga.be.belgareporter.BuildConfig;
 import belga.be.belgareporter.R;
+
+import static be.belga.reporter.utils.FileUtil.setRotate;
 
 public class PictureDetailFragment extends ReporterFragment implements MainActivity.OnBackPressed, OnClickListener {
     private static final String TAG = PictureDetailFragment.class.getSimpleName();
@@ -229,7 +233,9 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         spnStatus = result.findViewById(R.id.metadata_status);
 
         if (post.getFileUpload() != null) {
-            imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
+            Bitmap bitmapImage = BitmapFactory.decodeFile(post.getFileUpload().getGeneratedUrl());
+            //            imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
+            imgFileUpload.setImageBitmap(setRotate(bitmapImage,post.getFileUpload().getGeneratedUrl()));//Added by Tai 30/11/2018
         }
 
         spnPackages1.setAdapter(new CustomSpinnerAdapter(getContext(), getResources().getStringArray(R.array.metadata_packages_1)));
@@ -667,8 +673,11 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         post.getFileUpload().setGeneratedUrl(realPath);
         post.getFileUpload().setMimetype(mimeType);
         post.getFileUpload().setSize(mainActivity.getSizePicture(realPath));
+//        post.getFileUpload().setSize(mainActivity.getSizePicture(realPath, post.getFileUpload().getMimetype()));
+//        imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
 
-        imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
+        Bitmap bitmapImage = BitmapFactory.decodeFile(post.getFileUpload().getGeneratedUrl());
+        imgFileUpload.setImageBitmap(setRotate(bitmapImage,post.getFileUpload().getGeneratedUrl()));//Added by Tai 30/11/2018
 
         if (pictureFragment != null) {
             pictureFragment.updateFile(post.getFileUpload());
