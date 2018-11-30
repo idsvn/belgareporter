@@ -1,5 +1,7 @@
 <html lang="en"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
   <head>
     <meta charset="utf-8">
@@ -110,7 +112,7 @@
 						  			<source th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
 								</video>  -->
 								<iframe width="100%" height="340" th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' "></iframe>
-								<p>Size: 100mb</p>
+								<span>Size: </span> <span th:text="${objPost?.fileUpload?.size}"> 0mb</span><span>mb</span>
 								
 							</div>
 							<div th:case="'PICTURE'">
