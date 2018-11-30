@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -394,23 +395,6 @@ public class MainActivity extends AppCompatActivity {
         File imgFile = new File(url);
         return imgFile.length();
     }
-
-    //----------Edited by Tai 23/11/2018----------//
-    public long getSizePicture(String url,String typeFile) {
-        File imgFile = new File(url);
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
-        opts.inJustDecodeBounds = false; // This time it's for real!
-        int sampleSize = 1;
-        opts.inSampleSize = sampleSize;
-        Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.valueOf(typeFile.substring(6).toUpperCase()),93, stream);
-        byte[] imageInByte = stream.toByteArray();
-        return imgFile.length();
-    }
-    //----------------Edited by Tai-------------//
 
     public long getSizeVideo(String url) {
         File videoFile = new File(url);
