@@ -442,7 +442,8 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
         myFile.setGeneratedName(imgOrg.getName());
         myFile.setGeneratedUrl(imgOrg.getAbsolutePath());
         myFile.setMimetype(mimeType);
-        myFile.setSize(mainActivity.getSizePicture(realPath, myFile.getMimetype()));
+//        myFile.setSize(mainActivity.getSizePicture(realPath, myFile.getMimetype()));
+        myFile.setSize(mainActivity.getSizePicture(realPath));
 
         files.add(myFile);
 

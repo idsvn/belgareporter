@@ -23,6 +23,8 @@ import be.belga.reporter.mobile.views.IconTextView;
 import be.belga.reporter.utils.FileUtil;
 import belga.be.belgareporter.R;
 
+import static be.belga.reporter.utils.FileUtil.setRotate;
+
 /**
  * Created by vinh.bui on 6/18/2018.
  */
@@ -127,9 +129,7 @@ public class PostsListViewAdapter extends BaseAdapter {
                 v.videoPlayIcon.setVisibility(View.GONE);
 
                 Bitmap bitmapImage = BitmapFactory.decodeFile(fileUpload.getGeneratedUrl());
-//                v.ivImg.setImageBitmap(bitmapImage);
-                Bitmap thumbImage = ThumbnailUtils.extractThumbnail(bitmapImage, 128, 128);
-                v.ivImg.setImageDrawable(new BitmapDrawable(context.getResources(), thumbImage));
+                v.ivImg.setImageBitmap(setRotate(bitmapImage,fileUpload.getGeneratedUrl()));//Added by Tai 30/11/2018
                 break;
             case VIDEO:
                 v.imageContainer.setVisibility(View.VISIBLE);
