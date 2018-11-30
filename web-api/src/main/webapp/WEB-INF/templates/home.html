@@ -1,6 +1,8 @@
 
 <html lang="en"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
   <head>
     <meta charset="utf-8">
@@ -197,8 +199,6 @@
 	
 	    var id = $(this).attr('data');
 	    
-	    console.log('id2 = ' + id);
-	    
 	    $('#deleteModal').data('id', id).modal('show');
 	});
 	
@@ -206,8 +206,6 @@
 		
 		// var id = $('#deletePost').attr('data');
 		var id = $('#deleteModal').data('id');
-		
-		console.log('id3 = ' + id);
 		
 		$.post("./dashboard/delete",
     	{
