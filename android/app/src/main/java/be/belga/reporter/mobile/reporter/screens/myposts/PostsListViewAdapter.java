@@ -23,6 +23,7 @@ import be.belga.reporter.mobile.views.IconTextView;
 import be.belga.reporter.utils.FileUtil;
 import belga.be.belgareporter.R;
 
+import static be.belga.reporter.utils.FileUtil.calculateInSampleSize;
 import static be.belga.reporter.utils.FileUtil.setRotate;
 
 /**
@@ -128,7 +129,16 @@ public class PostsListViewAdapter extends BaseAdapter {
                 v.fontAwesomeContainer.setVisibility(View.GONE);
                 v.videoPlayIcon.setVisibility(View.GONE);
 
-                Bitmap bitmapImage = BitmapFactory.decodeFile(fileUpload.getGeneratedUrl());
+                //----------Added by Tai----------//
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                opts.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(fileUpload.getGeneratedUrl(), opts);
+                opts.inJustDecodeBounds = false; // This time it's for real!
+                int sampleSize = calculateInSampleSize(opts, 50, 50); // Calculate your sampleSize here
+                opts.inSampleSize = sampleSize;
+                Bitmap bitmapImage = BitmapFactory.decodeFile(fileUpload.getGeneratedUrl(),opts);
+                //----------Added by Tai----------//
+
                 v.ivImg.setImageBitmap(setRotate(bitmapImage,fileUpload.getGeneratedUrl()));//Added by Tai 30/11/2018
                 break;
             case VIDEO:
