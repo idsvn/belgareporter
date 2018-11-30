@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -53,6 +54,9 @@ public class Post implements Serializable {
 	private String topic;
 
 	private String lead;
+	
+	@Transient
+	private String size;
 
 	@Enumerated(EnumType.STRING)
 	private PostTypeEnum type;
@@ -173,4 +177,12 @@ public class Post implements Serializable {
 		this.lead = lead;
 	}
 
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+	
 }

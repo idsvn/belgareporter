@@ -112,7 +112,7 @@
 						  			<source th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
 								</video>  -->
 								<iframe width="100%" height="340" th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' "></iframe>
-								<span>Size: </span> <span th:text="${objPost?.fileUpload?.size}"> 0mb</span><span>mb</span>
+								<span>Size: </span> <span th:text="${objPost?.size}"> 0</span>
 								
 							</div>
 							<div th:case="'PICTURE'">

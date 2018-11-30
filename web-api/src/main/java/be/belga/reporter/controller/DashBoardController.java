@@ -35,6 +35,16 @@ public class DashBoardController {
 	public String index(Model model) {
 
 		List<Post> posts = postRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+		
+		for(Post post : posts) {
+			if(post.getFileUpload() != null) {
+				int byteSize = post.getFileUpload().getSize();
+				if(post.getFileUpload().getSize() > 0) {
+					post.setSize(humanReadableByteCount(byteSize,true));
+				}
+			}
+				
+		}
 
 		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
@@ -48,8 +58,12 @@ public class DashBoardController {
 		if (idPost != null && idPost > 0) {
 			Optional<Post> postOptional = postRepository.findById(idPost);
 			if (postOptional.isPresent()) {
-
-				model.addAttribute("objPost", postOptional.get());
+				Post post = postOptional.get();
+				int byteSize = post.getFileUpload().getSize();
+				if(post.getFileUpload().getSize() > 0) {
+					post.setSize(humanReadableByteCount(byteSize,true));
+				}	
+				model.addAttribute("objPost", post);
 				return "editPost";
 			}
 		}
@@ -88,5 +102,13 @@ public class DashBoardController {
 		}
 
 		return "redirect:/dashboard";
+	}
+	
+	public static String humanReadableByteCount(long bytes, boolean si) {
+	    int unit = si ? 1000 : 1024;
+	    if (bytes < unit) return bytes + " B";
+	    int exp = (int) (Math.log(bytes) / Math.log(unit));
+	    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+	    return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 }
