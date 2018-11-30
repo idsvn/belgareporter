@@ -17,13 +17,16 @@
     <!-- Custom styles for this template-->
     <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" rel="stylesheet" />
     <style>
     	#dataTable_paginate{
     		float: right;
     	}
     	#dataTable_filter{
     		float: right;
+    	}
+    	#dataTable_info , .pagination{
+    		margin-top: 20px;
     	}
     </style>
 
@@ -89,7 +92,7 @@
               Posts</div>
             <div class="card-body">
               <div class="">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" data-order="[[ 3, &quot;desc&quot; ]]" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Source Type</th>
