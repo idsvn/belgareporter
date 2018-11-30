@@ -116,6 +116,9 @@
 <!--                       	<a href="#">download</a> | -->
                       	<!-- <a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a> -->
                       	<a href="#" class="confirm-delete" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a>
+                      	
+                      	<a th:if=" ${post.type} == 'VIDEO'" data-url=""></a>
+                      	
                       </td>
                     </tr>
                   </tbody>
