@@ -266,7 +266,11 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         menu.findItem(R.id.paste_menu).setIcon(mainActivity.setFontAwesomeMenu(18, R.string.paste_icon));
         menu.findItem(R.id.paste_menu).setVisible(menu.findItem(R.id.copy_menu).isVisible() ? false : true);
         menu.findItem(R.id.send_menu).setIcon(mainActivity.setFontAwesomeMenu(24, R.string.send_icon));
-        menu.findItem(R.id.send_menu).setVisible(pictureFragment != null ? false : true);
+        if (post.getWorkflowStatus().equals(Post.PostWorkflowStatus.PUBLISHED) || pictureFragment != null) {
+            menu.findItem(R.id.send_menu).setVisible(false);
+        } else {
+            menu.findItem(R.id.send_menu).setVisible(true);
+        }
     }
 
     @Override
@@ -687,7 +691,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
         post.setId(null);
 
-        ReporterApplication.getInstance().addPost(post);
+        ReporterApplication.getInstance().updatePost(index, post);
 
         uploadPort = new UploadPort(getActivity(), fragment, post);
         uploadPort.execute(APIUrls.getPostUrl());
