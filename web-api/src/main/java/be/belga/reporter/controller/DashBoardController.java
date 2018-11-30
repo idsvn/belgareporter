@@ -3,6 +3,8 @@ package be.belga.reporter.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -32,10 +34,24 @@ public class DashBoardController {
 	FileUploadRepository fileUploadRepository;
 
 	@GetMapping(value = { "" })
-	public String index(Model model) {
+	public String index(Model model, HttpServletRequest request) {
 
 		List<Post> posts = postRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
 
+		for (Post post : posts) {
+			if (post.getFileUpload() != null) {
+				int byteSize = post.getFileUpload().getSize();
+				if (post.getFileUpload().getSize() > 0) {
+					post.setSize(humanReadableByteCount(byteSize, true));
+				}
+			}
+
+		}
+
+		String contextPath = "http://" + request.getServerName() + ":" + request.getServerPort()
+				+ request.getContextPath();
+
+		model.addAttribute("contextPath", contextPath);
 		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
 
@@ -43,13 +59,22 @@ public class DashBoardController {
 	}
 
 	@GetMapping("/edit/{idPost:[\\d]+}")
-	public String eit(@PathVariable(value = "idPost") Integer idPost, Model model) {
+	public String eit(@PathVariable(value = "idPost") Integer idPost, Model model, HttpServletRequest request) {
 
 		if (idPost != null && idPost > 0) {
 			Optional<Post> postOptional = postRepository.findById(idPost);
 			if (postOptional.isPresent()) {
+				Post post = postOptional.get();
+				int byteSize = post.getFileUpload().getSize();
+				if (post.getFileUpload().getSize() > 0) {
+					post.setSize(humanReadableByteCount(byteSize, true));
+				}
 
-				model.addAttribute("objPost", postOptional.get());
+				String contextPath = "http://" + request.getServerName() + ":" + request.getServerPort()
+						+ request.getContextPath();
+
+				model.addAttribute("contextPath", contextPath);
+				model.addAttribute("objPost", post);
 				return "editPost";
 			}
 		}
@@ -88,5 +113,14 @@ public class DashBoardController {
 		}
 
 		return "redirect:/dashboard";
+	}
+
+	public static String humanReadableByteCount(long bytes, boolean si) {
+		int unit = si ? 1000 : 1024;
+		if (bytes < unit)
+			return bytes + " B";
+		int exp = (int) (Math.log(bytes) / Math.log(unit));
+		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+		return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
 	}
 }
