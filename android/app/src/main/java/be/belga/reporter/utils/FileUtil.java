@@ -216,4 +216,21 @@ public class FileUtil {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        int i;
+
+        for(i=0;i<999;i++){
+            if (height > reqHeight + reqHeight * i || width > reqWidth + reqHeight * i) {
+                inSampleSize = i;
+            }
+            else
+                break;
+        }
+        return inSampleSize;
+    }
 }

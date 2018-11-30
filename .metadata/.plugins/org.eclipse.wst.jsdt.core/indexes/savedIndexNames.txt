@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+D:\belga-reporter-new\belgareporter\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+279661582.index
+409690715.index
+2787696285.index
+374703775.index
+1340640915.index
+4122155903.index
+2356236455.index

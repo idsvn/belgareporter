@@ -88,6 +88,13 @@ public class NetworkFragment extends DialogFragment {
                 }
             }
         });
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
     }
 
     @Override

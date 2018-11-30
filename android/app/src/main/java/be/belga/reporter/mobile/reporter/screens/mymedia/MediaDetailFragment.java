@@ -58,6 +58,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     private static final String PARAM_POST = "Post";
     private static final String PARAM_INDEX = "Index";
     private static final String PARAM_TITLE = "Title";
+    private static final String PARAM_ADD_NEW = "AddNew";
 
     private MainActivity mainActivity;
 
@@ -65,6 +66,8 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
 
     private MediaFragment mediaFragment;
     private Menu menu;
+
+    private boolean addNew;
 
     private Post post;
     private Metadata cloneMetadata;
@@ -135,6 +138,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         MediaDetailFragment instance = new MediaDetailFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_POST, new Gson().toJson(post));
+        args.putBoolean(PARAM_ADD_NEW, true);
         args.putInt(PARAM_INDEX, 0);
         args.putInt(PARAM_TITLE, title);
         instance.setArguments(args);
@@ -146,6 +150,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         MediaDetailFragment instance = new MediaDetailFragment();
         Bundle args = new Bundle();
         args.putString(PARAM_POST, new Gson().toJson(post));
+        args.putBoolean(PARAM_ADD_NEW, false);
         args.putInt(PARAM_INDEX, index);
         args.putInt(PARAM_TITLE, title);
         instance.setArguments(args);
@@ -164,6 +169,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         if (getArguments() != null) {
             index = getArguments().getInt(PARAM_INDEX);
             title = getArguments().getInt(PARAM_TITLE);
+            addNew = getArguments().getBoolean(PARAM_ADD_NEW);
             post = Post.parseFromJSON(getArguments().getString(PARAM_POST));
         }
 
@@ -292,7 +298,11 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         menu.findItem(R.id.paste_menu).setIcon(mainActivity.setFontAwesomeMenu(18, R.string.belga_icon));
         menu.findItem(R.id.paste_menu).setVisible(menu.findItem(R.id.copy_menu).isVisible() ? false : true);
         menu.findItem(R.id.send_menu).setIcon(mainActivity.setFontAwesomeMenu(24, R.string.send_icon));
-        menu.findItem(R.id.send_menu).setVisible(mediaFragment != null ? false : true);
+        if (post.getWorkflowStatus().equals(Post.PostWorkflowStatus.PUBLISHED) || mediaFragment != null) {
+            menu.findItem(R.id.send_menu).setVisible(false);
+        } else {
+            menu.findItem(R.id.send_menu).setVisible(true);
+        }
     }
 
     @Override
@@ -441,7 +451,6 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         } else {
             ReporterApplication.getInstance().updatePost(index, post);
             PostManager.getInstance().onPostsUpdated(this, false);
-//            PostManager.getInstance().onPostUpdated(this, false, post);
         }
 
         mainActivity.hideSoftKeyboard(getActivity());
@@ -662,11 +671,10 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
         post.setId(null);
 
-        ReporterApplication.getInstance().addPost(post);
+        ReporterApplication.getInstance().updatePost(index, post);
 
         uploadPort = new UploadPort(getActivity(), fragment, post);
         uploadPort.execute(APIUrls.getPostUrl());
-
 
         PostManager.getInstance().onPostsUpdated(this, false);
 

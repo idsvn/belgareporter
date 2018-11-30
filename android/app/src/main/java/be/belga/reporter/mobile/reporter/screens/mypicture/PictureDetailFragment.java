@@ -61,6 +61,7 @@ import be.belga.reporter.utils.RealPathUtil;
 import belga.be.belgareporter.BuildConfig;
 import belga.be.belgareporter.R;
 
+import static be.belga.reporter.utils.FileUtil.calculateInSampleSize;
 import static be.belga.reporter.utils.FileUtil.setRotate;
 
 public class PictureDetailFragment extends ReporterFragment implements MainActivity.OnBackPressed, OnClickListener {
@@ -233,9 +234,15 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         spnStatus = result.findViewById(R.id.metadata_status);
 
         if (post.getFileUpload() != null) {
-            Bitmap bitmapImage = BitmapFactory.decodeFile(post.getFileUpload().getGeneratedUrl());
-            //            imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(post.getFileUpload().getGeneratedUrl(), opts);
+            opts.inJustDecodeBounds = false; // This time it's for real!
+            int sampleSize = calculateInSampleSize(opts, 300, 300); // Calculate your sampleSize here
+            opts.inSampleSize = sampleSize;
+            Bitmap bitmapImage = BitmapFactory.decodeFile(post.getFileUpload().getGeneratedUrl(),opts);
             imgFileUpload.setImageBitmap(setRotate(bitmapImage,post.getFileUpload().getGeneratedUrl()));//Added by Tai 30/11/2018
+            //            imgFileUpload.setImageURI(Uri.parse(post.getFileUpload().getGeneratedUrl()));
         }
 
         spnPackages1.setAdapter(new CustomSpinnerAdapter(getContext(), getResources().getStringArray(R.array.metadata_packages_1)));
@@ -272,7 +279,11 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         menu.findItem(R.id.paste_menu).setIcon(mainActivity.setFontAwesomeMenu(18, R.string.paste_icon));
         menu.findItem(R.id.paste_menu).setVisible(menu.findItem(R.id.copy_menu).isVisible() ? false : true);
         menu.findItem(R.id.send_menu).setIcon(mainActivity.setFontAwesomeMenu(24, R.string.send_icon));
-        menu.findItem(R.id.send_menu).setVisible(pictureFragment != null ? false : true);
+        if (post.getWorkflowStatus().equals(Post.PostWorkflowStatus.PUBLISHED) || pictureFragment != null) {
+            menu.findItem(R.id.send_menu).setVisible(false);
+        } else {
+            menu.findItem(R.id.send_menu).setVisible(true);
+        }
     }
 
     @Override
@@ -696,7 +707,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
         post.setId(null);
 
-        ReporterApplication.getInstance().addPost(post);
+        ReporterApplication.getInstance().updatePost(index, post);
 
         uploadPort = new UploadPort(getActivity(), fragment, post);
         uploadPort.execute(APIUrls.getPostUrl());

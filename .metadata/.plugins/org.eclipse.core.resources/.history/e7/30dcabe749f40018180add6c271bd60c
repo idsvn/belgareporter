@@ -1,0 +1,187 @@
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Report - Edit</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+      <a class="navbar-brand mr-1" href="#" th:href="@{/}">Reporter</a>
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <!-- <i class="fas fa-bars"></i> -->
+      </button>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+<!--         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">Login Screens:</h6>
+            <a class="dropdown-item" href="login.html">Login</a>
+            <a class="dropdown-item" href="register.html">Register</a>
+            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Other Pages:</h6>
+            <a class="dropdown-item" href="404.html">404 Page</a>
+            <a class="dropdown-item" href="blank.html">Blank Page</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+        </li> -->
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Edit Post</div>
+            <div class="card-body">
+              <div class="">
+              	<div class="row">
+              		<div class="col-md-7">
+	              	 	<form action="#" th:action="@{/dashboard/update}" method="POST"  modelAttribute="objPost">
+	              	 		<input th:value="${objPost.id}" th:name="id" style="display: none;"/>
+						  <div class="form-group">
+						    <label for="frmTopic">Topic</label>
+						    <input type="text" class="form-control" id="frmTopic" th:name="topic" th:value="${objPost.topic}">
+						  </div>
+						  <div class="form-group">
+						    <label for="frmTitle">Title *</label>
+						    <input type="text" class="form-control" id="frmTitle" th:name="title" th:value="${objPost.title}">
+						  </div>
+						  <div class="form-group">
+						    <label for="frmLead">Lead *</label>
+						    <textarea cols="10" rows="5" class="form-control" id="frmLead" th:name="lead" th:text="${objPost.lead}"></textarea>
+						  </div>
+						  <div class="form-group">
+						    <label for="frmBody">Body</label>
+						    <textarea cols="10" rows="10" class="form-control" id="frmBody" th:name="body" th:text="${objPost.body}"></textarea>
+						  </div>
+						  <button type="submit" class="btn btn-success">Save</button>
+						  <a href="#" th:href="@{/dashboard}" class="btn btn-default" role="button" style="background-color: #e7e7e7; color: black;">Cancel</a>
+						</form> 
+					</div>
+					<div class="col-md-5">
+						<div th:switch="${objPost?.type?.name()}">
+							<div th:case="'VIDEO'">
+						 		<!-- <video width="100%" height="340" controls>
+						  			<source th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
+								</video>  -->
+								<iframe width="100%" height="340" th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' "></iframe>
+								<span>Size: </span> <span th:text="${objPost?.fileUpload?.size}"> 0mb</span>
+								
+							</div>
+							<div th:case="'PICTURE'">
+								<img id="imgPost" alt="" >
+							</div>
+							<div th:case="*">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script th:inline="javascript">
+	/*<![CDATA[*/
+	
+	    var nameImg = /*[[${objPost.fileUpload?.generatedName}]]*/ 'default';
+	    var context = /*[[@{/}]]*/;
+	/*]]>*/
+	</script>
+	
+	<script>
+		var status;
+		$(document).ready(function(){
+			
+			/* check if couldn't load image */
+			var request = new XMLHttpRequest();
+			request.open("GET", context + "data/" + nameImg, true);
+			request.send();
+			request.onload = function(){
+
+				status = request.status;
+				if(status == 404) 
+					$('#imgPost').attr('src',context + "images/No_image_available.png");
+				else if(status == 200)
+					$('#imgPost').attr('src',context + "data/" + nameImg); 
+			}
+			
+		});
+		
+	
+	</script>
+	
+  </body>
+
+</html>
