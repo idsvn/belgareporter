@@ -97,23 +97,23 @@ public class PostManager {
 
     //-----------Added by Tai 28/11/2018--------------//
     public void onPostUpdated(ReporterFragment fragment, boolean callback, Post post) {
-        switch (post.getWorkflowStatus().getStatus()) {
-            case "NEW":
-                newPost.add(post);
-                break;
-
-            case "INPROGRESS":
-                inProgressPost.add(post);
-                break;
-
-            case "PUBLISHED":
-                publishedPost.add(post);
-                break;
-
-            case "FAILED":
-                failedPost.add(post);
-                break;
-        }
+//        switch (post.getWorkflowStatus().getStatus()) {
+//            case "NEW":
+//                newPost.add(post);
+//                break;
+//
+//            case "INPROGRESS":
+//                inProgressPost.add(post);
+//                break;
+//
+//            case "PUBLISHED":
+//                publishedPost.add(post);
+//                break;
+//
+//            case "FAILED":
+//                failedPost.add(post);
+//                break;
+//        }
 
         List<WeakReference<OnPostsUpdatedListener>> listeners = onPostsUpdatedListeners;
         for (int i = 0; i < listeners.size(); i++) {

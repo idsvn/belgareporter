@@ -36,6 +36,13 @@ public class Metadata implements Serializable {
     private String urgency;
     private String comment;
 
+    //Added by Tai 29/11/2018
+    private String package_1;
+    private String package_2;
+    private String author_tv;
+    private String author_sp;
+
+
     public static List<Metadata> parseAllFromJSON(String json) {
         Metadata[] metadata = new Gson().fromJson(json, Metadata[].class);
         return new LinkedList<>(Arrays.asList(metadata));
@@ -226,5 +233,38 @@ public class Metadata implements Serializable {
                 ", urgency='" + urgency + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';
+    }
+
+    //Added by Tai 29/11/2018
+    public String getPackage_1() {
+        return package_1;
+    }
+
+    public void setPackage_1(String package_1) {
+        this.package_1 = package_1;
+    }
+
+    public String getPackage_2() {
+        return package_2;
+    }
+
+    public void setPackage_2(String package_2) {
+        this.package_2 = package_2;
+    }
+
+    public String getAuthor_tv() {
+        return author_tv;
+    }
+
+    public void setAuthor_tv(String author_tv) {
+        this.author_tv = author_tv;
+    }
+
+    public String getAuthor_sp() {
+        return author_sp;
+    }
+
+    public void setAuthor_sp(String author_sp) {
+        this.author_sp = author_sp;
     }
 }

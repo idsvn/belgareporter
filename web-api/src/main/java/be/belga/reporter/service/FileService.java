@@ -10,7 +10,7 @@ public interface FileService {
     Path saveFile(String name, InputStream data) throws IOException;
     Path readFile(String name);
 
-    FileUpload createFile(String originalName);
+    FileUpload createFile(String originalName, int fizeSize);
 
     long getOffset(int fileId) throws IOException;
 

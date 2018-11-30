@@ -440,8 +440,8 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
             mediaFragment.updateFileMetadata(post);
         } else {
             ReporterApplication.getInstance().updatePost(index, post);
-//            PostManager.getInstance().onPostsUpdated(this, false);
-            PostManager.getInstance().onPostUpdated(this, false, post);
+            PostManager.getInstance().onPostsUpdated(this, false);
+//            PostManager.getInstance().onPostUpdated(this, false, post);
         }
 
         mainActivity.hideSoftKeyboard(getActivity());

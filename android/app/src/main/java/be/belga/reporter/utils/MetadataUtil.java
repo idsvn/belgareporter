@@ -90,6 +90,51 @@ public class MetadataUtil {
         metadata.setComment(comment);
     }
 
+    //Added by Tai 29/11/2018
+    public static void setDataMetadata(Metadata metadata,
+                                       String package_,
+                                       String package_1,
+                                       String package_2,
+                                       String urgency,
+                                       String distribition,
+                                       String language,
+                                       String keywords,
+                                       String iptc,
+                                       String author,
+                                       String author_tv,
+                                       String author_sp,
+                                       String label,
+                                       String status,
+                                       String city,
+                                       String country,
+                                       String editorial,
+                                       String info,
+                                       String credit,
+                                       String source,
+                                       String comment) {
+        metadata.setId(UUID.randomUUID().toString());
+        metadata.setPackage_(package_);
+        metadata.setPackage_1(package_1);
+        metadata.setPackage_2(package_2);
+        metadata.setUrgency(urgency);
+        metadata.setDistribition(distribition);
+        metadata.setLanguage(language);
+        metadata.setKeywords(keywords);
+        metadata.setIptc(iptc);
+        metadata.setAuthor(author);
+        metadata.setAuthor_tv(author_tv);
+        metadata.setAuthor_sp(author_sp);
+        metadata.setLabel(label);
+        metadata.setStatus(status);
+        metadata.setCity(city);
+        metadata.setCountry(country);
+        metadata.setEditorial(editorial);
+        metadata.setInfo(info);
+        metadata.setCredit(credit);
+        metadata.setSource(source);
+        metadata.setComment(comment);
+    }
+
     public static void addMetadata(Activity activity, final ViewGroup containerView, String[] strings, final List<String> stringList) {
         LayoutInflater inflater = activity.getLayoutInflater();
         containerView.clearFocus();
