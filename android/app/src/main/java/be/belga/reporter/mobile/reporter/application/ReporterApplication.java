@@ -36,11 +36,15 @@ public class ReporterApplication extends Application {
     private static final String KEY_USER = "be.belga.belgareporter.application.KEY_USER";
     private static final String KEY_USER_METADATA = "be.belga.belgareporter.application.KEY_USER_METADATA";
     private static final String KEY_APP_TOKEN = "be.belga.belgareporter.application.KEY_APP_TOKEN";
+    private static final String KEY_STATUS_CONNECTION = "be.belga.belgareporter.application.KEY_STATUS_CONNECTION";
+    private static final String KEY_CHECK_SETTING = "be.belga.belgareporter.application.KEY_CHECK_SETTING";
     private static ReporterApplication instance = null;
     private static Object mutex = new Object();
     private User user;
     private Metadata userMetadata;
     private String token = null;
+    private boolean statusConnection;
+    private boolean checkSetting;
     private List<WeakReference<OnUserChangedListener>> onUserChangedListeners = new ArrayList<>();
     private SharedPreferences persistentPreferences;
     private List<Post> posts = new ArrayList<>();
@@ -66,7 +70,6 @@ public class ReporterApplication extends Application {
         PersistantStorageManager.configureDB(this);
 
         persistentPreferences = getSharedPreferences(PERSISTENT_PREFERENCES, MODE_PRIVATE);
-
         this.user = new Gson().fromJson(persistentPreferences.getString(KEY_USER, null), User.class);
         this.userMetadata = new Gson().fromJson(persistentPreferences.getString(KEY_USER_METADATA, null), Metadata.class);
         this.posts = Post.parseAllFromJSON(this.getPersistentPreference().getString(KEY_POSTS, null));
@@ -110,6 +113,24 @@ public class ReporterApplication extends Application {
 
     public void clearCloneMetadata() {
         getPersistentPreference().edit().putString(KEY_ClONE_METADATA, null).commit();
+    }
+
+    public boolean isStatusConnection() {
+        return statusConnection;
+    }
+
+    public void setStatusConnection(boolean statusConnection) {
+        this.statusConnection = statusConnection;
+        this.persistentPreferences.edit().putBoolean(KEY_STATUS_CONNECTION, statusConnection).commit();
+    }
+
+    public boolean isCheckSetting() {
+        return checkSetting;
+    }
+
+    public void setCheckSetting(boolean checkSetting) {
+        this.checkSetting = checkSetting;
+        this.persistentPreferences.edit().putBoolean(KEY_CHECK_SETTING, checkSetting).commit();
     }
 
     @Override

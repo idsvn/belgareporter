@@ -31,6 +31,10 @@ public class FileUtil {
 
     public static String getMimeType(String url) {
         String type = null;
+        int i = url.lastIndexOf('.');
+        if (i > 0) {
+            url = "file." + url.substring(i+1);
+        }
         String extension = MimeTypeMap.getFileExtensionFromUrl(url.replaceAll(" ", ""));
         if (extension != null) {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
@@ -164,7 +168,7 @@ public class FileUtil {
     }
 
     //Created by Tai 30/11/2018
-    public static long getSizePicture(String url,String typeFile) {
+    public static long getSizePicture(String url, String typeFile) {
         File imgFile = new File(url);
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
@@ -174,12 +178,12 @@ public class FileUtil {
         opts.inSampleSize = sampleSize;
         Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), opts);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.valueOf(typeFile.substring(6).toUpperCase()),93, stream);
+        bitmap.compress(Bitmap.CompressFormat.valueOf(typeFile.substring(6).toUpperCase()), 93, stream);
         byte[] imageInByte = stream.toByteArray();
         return imgFile.length();
     }
 
-    public static Bitmap setRotate(Bitmap bitmap, String photoPath){
+    public static Bitmap setRotate(Bitmap bitmap, String photoPath) {
         ExifInterface ei = null;
         try {
             ei = new ExifInterface(photoPath);
@@ -189,7 +193,7 @@ public class FileUtil {
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_UNDEFINED);
 
-        switch(orientation) {
+        switch (orientation) {
 
             case ExifInterface.ORIENTATION_ROTATE_90:
                 bitmap = rotateImage(bitmap, 90);
@@ -224,11 +228,10 @@ public class FileUtil {
         int inSampleSize = 1;
         int i;
 
-        for(i=0;i<999;i++){
+        for (i = 0; i < 999; i++) {
             if (height > reqHeight + reqHeight * i || width > reqWidth + reqHeight * i) {
                 inSampleSize = i;
-            }
-            else
+            } else
                 break;
         }
         return inSampleSize;

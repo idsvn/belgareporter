@@ -3,6 +3,7 @@ package be.belga.reporter.mobile.reporter.service;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -54,7 +55,11 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            sendPost(activity, fragment, post);
+                            if (ReporterApplication.getInstance().isStatusConnection()) {
+                                sendPost(activity, fragment, post);
+                            } else {
+                                Toast.makeText(activity, "Error Connection", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }

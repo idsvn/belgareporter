@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
 import belga.be.belgareporter.R;
 
@@ -54,6 +54,7 @@ public class NetworkFragment extends DialogFragment {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         receiver = new NetworkReceiver();
         mainActivity.registerReceiver(receiver, filter);
+        ReporterApplication.getInstance().setCheckSetting(true);
     }
 
     @Override
@@ -71,6 +72,17 @@ public class NetworkFragment extends DialogFragment {
 
         getDialog().setTitle(getString(R.string.upload_setting));
 
+        ConnectivityManager connMgr = (ConnectivityManager) mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        final NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()) {
+            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            wifiConnected = false;
+            mobileConnected = false;
+        }
+
         containerRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -79,10 +91,16 @@ public class NetworkFragment extends DialogFragment {
                 if (buttonChecked != null) {
                     switch (buttonChecked.getId()) {
                         case R.id.radio_wifi_network:
-                            Toast.makeText(getActivity(), "wifi", Toast.LENGTH_LONG).show();
+                            if (wifiConnected) {
+                                ReporterApplication.getInstance().setStatusConnection(true);
+                            } else {
+                                ReporterApplication.getInstance().setStatusConnection(false);
+                            }
                             break;
                         case R.id.radio_any_network:
-                            Toast.makeText(getActivity(), "any", Toast.LENGTH_LONG).show();
+                            if (activeInfo != null && activeInfo.isConnected()) {
+                                ReporterApplication.getInstance().setStatusConnection(true);
+                            }
                             break;
                     }
                 }
@@ -117,37 +135,7 @@ public class NetworkFragment extends DialogFragment {
         // is the default value to use if a preference value is not found.
         sPref = sharedPrefs.getString("listPref", "Wi-Fi");
 
-        updateConnectedFlags();
-
         if (refreshDisplay) {
-            loadPage();
         }
     }
-
-    // Checks the network connection and sets the wifiConnected and mobileConnected
-    // variables accordingly.
-    public void updateConnectedFlags() {
-        ConnectivityManager connMgr = (ConnectivityManager) mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
-        if (activeInfo != null && activeInfo.isConnected()) {
-            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
-            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
-        } else {
-            wifiConnected = false;
-            mobileConnected = false;
-        }
-    }
-
-    // Uses AsyncTask subclass to download the XML feed from stackoverflow.com.
-    public void loadPage() {
-        if (((sPref.equals(ANY)) && (wifiConnected || mobileConnected))
-                || ((sPref.equals(WIFI)) && (wifiConnected))) {
-            Toast.makeText(mainActivity, sPref, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(mainActivity, sPref, Toast.LENGTH_LONG).show();
-
-        }
-    }
-
 }

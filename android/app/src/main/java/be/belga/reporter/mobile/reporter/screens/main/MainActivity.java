@@ -2,12 +2,15 @@ package be.belga.reporter.mobile.reporter.screens.main;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.ActivityCompat;
@@ -52,6 +55,8 @@ import be.belga.reporter.utils.FileUtil;
 import belga.be.belgareporter.R;
 
 public class MainActivity extends AppCompatActivity {
+    private static boolean wifiConnected = false;
+
     private DrawerLayout drawerLayout;
     private ListView drawerListview;
     private IconTextView btnChangeMenu;
@@ -75,6 +80,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!ReporterApplication.getInstance().isCheckSetting()) {
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            final NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+            if (activeInfo != null && activeInfo.isConnected()) {
+                wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            } else {
+                wifiConnected = false;
+            }
+
+            if (wifiConnected) {
+                ReporterApplication.getInstance().setStatusConnection(true);
+            } else {
+                ReporterApplication.getInstance().setStatusConnection(false);
+            }
+        }
 
         ReporterApplication.getInstance().clearCloneMetadata();
 
