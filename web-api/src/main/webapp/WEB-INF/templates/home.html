@@ -117,7 +117,7 @@
 <!--                       	<a href="#">download</a> | -->
                       	<!-- <a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a> -->
                       	<a href="#" class="confirm-delete" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">Delete</a> |
-                      	<a href="#" th:if="${PostEnumVideo == post.type}" th:attr="data-name=${post?.fileUpload?.generatedName}"  onclick="playVideo(this)">Play</a>
+                      	<a href="#" th:if="${PostEnumVideo == post.type || PostEnumAudio == post.type}" th:attr="data-name=${post?.fileUpload?.generatedName}"  th:onclick="|playFile(this , '${post.type}')|">Play</a>
                       </td>
                     </tr>
                   </tbody>
@@ -202,6 +202,11 @@
 			<video width="100%" height="340" id="video" controls>
 				<source src="#" id="mp4video" type="video/mp4">
 			</video>
+			
+			<audio id="audio"  controls>
+			  <source id="mp3audio" th:src="${objPost.fileUpload != null} ? ${contextPath} + '/data/' + ${objPost.fileUpload.generatedName} : '' " type="audio/ogg">
+			</audio>
+			
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
@@ -232,19 +237,40 @@
 		});
 	});
 	
-	function playVideo(element){
+	function playFile(element , type){
 	      
-        var videocontainer = document.getElementById('video');
-        var videosource = document.getElementById('mp4video');
-
-       	var obj =  element;
+		console.log(type)
+		var audiocontainer = document.getElementById('audio');
+		var videocontainer = document.getElementById('video');
+		var obj =  element;
        	var nameImg = obj.getAttribute('data-name');
-       	var newmp4 = context + "/data/" + nameImg ;
+		if(type === 'VIDEO'){
+
+			audiocontainer.style.display = 'none';
+			videocontainer.style.display = 'block';
+	        var videosource = document.getElementById('mp4video');
+
+	       	var newmp4 = context + "/data/" + nameImg ;
+	        
+	       	videocontainer.pause();
+	        videosource.setAttribute('src', newmp4);
+	        videocontainer.load();
+	        videocontainer.play();
+		}
+		else{
+			audiocontainer.style.display = 'block';
+			videocontainer.style.display = 'none';
+			
+			var audiosource = document.getElementById('mp3audio');
+			var newmp3 = context + "/data/" + nameImg ;
+			
+			audiocontainer.pause();
+			audiosource.setAttribute('src', newmp3);
+	        audiocontainer.load();
+	        audiocontainer.play();
+		}
+		
         
-       	videocontainer.pause();
-        videosource.setAttribute('src', newmp4);
-        videocontainer.load();
-        videocontainer.play();
        	
        	$('#playVideoModal').modal('show'); 
        
@@ -253,6 +279,9 @@
 	function stopVideo(){
 		var videocontainer = document.getElementById('video');
 		videocontainer.pause();
+		
+		var audiocontainer = document.getElementById('audio');
+		audiocontainer.pause();
 		$('#playVideoModal').modal('hide'); 
 		
 	}

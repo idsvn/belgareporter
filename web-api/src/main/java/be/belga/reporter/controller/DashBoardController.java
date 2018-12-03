@@ -56,6 +56,7 @@ public class DashBoardController {
 		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
 		model.addAttribute("PostEnumVideo", PostTypeEnum.VIDEO);
+		model.addAttribute("PostEnumAudio", PostTypeEnum.AUDIO);
 
 		return "home";
 	}

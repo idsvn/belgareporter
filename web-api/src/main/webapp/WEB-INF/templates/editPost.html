@@ -121,6 +121,14 @@
 							<div th:case="'PICTURE'" class="imageEdit">
 								<img id="imgPost" alt="" class="imgDetail">
 							</div>
+							<div th:case="'AUDIO'">
+								<audio controls>
+								  <source th:src="${objPost.fileUpload != null} ? ${contextPath} + '/data/' + ${objPost.fileUpload.generatedName} : '' " type="audio/ogg">
+								</audio>
+								<div>
+									<span>Size: </span> <span th:text="${objPost?.size}"> 0mb</span>
+								</div>
+							</div>
 							<div th:case="*">
 								
 							</div>
