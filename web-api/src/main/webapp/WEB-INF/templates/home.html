@@ -109,7 +109,7 @@
                       <td th:text="${post.topic}">System Architect</td>
                       <td th:text="${post.title}">Edinburgh</td>
                       <td th:text="${post.createDate != null} ? ${#dates.format(post.createDate, 'yyyy/MM/dd HH:mm')}">61</td>
-                      <td th:text="  (${post?.fileUpload?.size} ? ${#numbers.formatDecimal(post?.fileUpload?.size / 1048576, 0, 'DEFAULT', 0, 'DEFAULT')} : '0') + ' MB'">0</td>
+                      <td th:text="${post?.size}">0</td>
                       <td>
                       	<a th:href="@{/dashboard/edit/} + ${post.id}">edit</a> |
 <!--                       	<a href="#">published</a> | -->

@@ -114,7 +114,7 @@
 								<video width="100%" height="340" controls>
 									<source th:src="${objPost.fileUpload != null} ? ${contextPath} + '/data/' + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
 								</video>
-								<span>Size: </span> <span th:text="${objPost?.fileUpload?.size}"> 0mb</span><span>mb</span>
+								<span>Size: </span> <span th:text="${objPost?.size}"> 0mb</span>
 								
 							</div>
 							<div th:case="'PICTURE'">
