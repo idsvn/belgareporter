@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
-    
+    <link th:href="@{/css/edit-post.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
   </head>
@@ -111,14 +111,15 @@
 						 		<!-- <video width="100%" height="340" controls>
 						  			<source th:src="${objPost.fileUpload != null} ? @{/data/} + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
 								</video>  -->
-								<video width="100%" height="340" controls>
+								<video width="auto" height="340" controls >
 									<source th:src="${objPost.fileUpload != null} ? ${contextPath} + '/data/' + ${objPost.fileUpload.generatedName} : '' " type="video/mp4">
 								</video>
-								<span>Size: </span> <span th:text="${objPost?.size}"> 0mb</span>
-								
+								<div>
+									<span>Size: </span> <span th:text="${objPost?.size}"> 0mb</span>
+								</div>
 							</div>
-							<div th:case="'PICTURE'">
-								<img id="imgPost" alt="" >
+							<div th:case="'PICTURE'" class="imageEdit">
+								<img id="imgPost" alt="" class="imgDetail">
 							</div>
 							<div th:case="*">
 								
