@@ -38,7 +38,6 @@ public class NetworkReceiver extends BroadcastReceiver {
             // Sets refreshDisplay to false.
         } else {
             NetworkFragment.refreshDisplay = false;
-            Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_SHORT).show();
         }
     }
 }

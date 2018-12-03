@@ -457,7 +457,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     }
 
     private void loadData() {
-        if (post.getStrId() != null) {
+        if (post.getStrId() != null || post.getId() != 0) {
             edTitle.setText(post.getTitle());
             edTopic.setText(post.getTopic());
             edCaption.setText(post.getCaption());

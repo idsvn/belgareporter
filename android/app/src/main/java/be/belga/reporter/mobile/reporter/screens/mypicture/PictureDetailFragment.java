@@ -428,7 +428,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
     }
 
     private void loadData() {
-        if (post.getStrId() != null) {
+        if (post.getStrId() != null || post.getId() != 0) {
             edTitle.setText(post.getTitle());
             edTopic.setText(post.getTopic());
             edCaption.setText(post.getCaption());
@@ -703,7 +703,6 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
             }
         }
         post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
-        post.getMetadata().setId(null);
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
 
         ReporterApplication.getInstance().updatePost(index, post);
