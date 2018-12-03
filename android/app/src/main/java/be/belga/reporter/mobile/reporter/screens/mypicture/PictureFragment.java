@@ -477,7 +477,6 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
             post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
             post.getMetadata().setId(null);
             post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
-            post.setId(null);
 
             ReporterApplication.getInstance().addPost(post);
 

@@ -174,7 +174,6 @@ public class InProgressPostsFragment extends ReporterFragment {
                                 Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_LONG).show();
                                 break;
                             case 1:
-                                posts.get(position).setId(null);
                                 posts.get(position).setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
 
                                 Post tPost = posts.get(position);

@@ -366,7 +366,7 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
     private void addNewPost() {
         post = new Post();
 
-        post.setId(UUID.randomUUID().toString());
+        post.setStrId(UUID.randomUUID().toString());
         post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
         if (getString(title).equals(Post.PostType.SHORT.getFullStatus())) {
             post.setType(Post.PostType.SHORT.getStatus());

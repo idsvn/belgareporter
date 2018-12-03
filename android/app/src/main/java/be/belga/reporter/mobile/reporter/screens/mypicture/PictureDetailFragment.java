@@ -391,8 +391,8 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
 
     private void savePost() {
         mainActivity.hideSoftKeyboard(getActivity());
-        if (post.getId() == null) {
-            post.setId(UUID.randomUUID().toString());
+        if (post.getStrId() == null) {
+            post.setStrId(UUID.randomUUID().toString());
         }
 
         post.setTopic(edTopic.getText().toString());
@@ -428,7 +428,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
     }
 
     private void loadData() {
-        if (post.getId() != null) {
+        if (post.getStrId() != null) {
             edTitle.setText(post.getTitle());
             edTopic.setText(post.getTopic());
             edCaption.setText(post.getCaption());
@@ -705,7 +705,6 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
         post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
         post.getMetadata().setId(null);
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
-        post.setId(null);
 
         ReporterApplication.getInstance().updatePost(index, post);
 
