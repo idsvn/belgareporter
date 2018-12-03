@@ -21,7 +21,8 @@ import belga.be.belgareporter.R;
 @Keep
 public class Post implements Serializable {
 
-    private String id;
+    private long id;
+    private String strId;
     private String topic;
     private String title;
     private String caption;
@@ -44,12 +45,20 @@ public class Post implements Serializable {
         return post != null ? post : null;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public String getStrId() {
+        return strId;
+    }
+
+    public void setStrId(String strId) {
+        this.strId = strId;
     }
 
     public String getTopic() {

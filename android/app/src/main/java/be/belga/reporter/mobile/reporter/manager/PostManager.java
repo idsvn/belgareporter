@@ -60,7 +60,7 @@ public class PostManager {
         failedPost.clear();
 
         for (Post post : allPosts) {
-            postMap.put(post.getId(), post);
+            postMap.put(post.getStrId(), post);
             switch (post.getWorkflowStatus().getStatus()) {
                 case "NEW":
                     newPost.add(post);

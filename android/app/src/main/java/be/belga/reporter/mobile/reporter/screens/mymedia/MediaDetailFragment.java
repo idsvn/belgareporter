@@ -414,8 +414,8 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     }
 
     private void savePost() {
-        if (post.getId() == null) {
-            post.setId(UUID.randomUUID().toString());
+        if (post.getStrId() == null) {
+            post.setStrId(UUID.randomUUID().toString());
             if (title == R.string.video_detail) {
                 post.setType(Post.PostType.VIDEO.getStatus());
             } else {
@@ -457,7 +457,7 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
     }
 
     private void loadData() {
-        if (post.getId() != null) {
+        if (post.getStrId() != null) {
             edTitle.setText(post.getTitle());
             edTopic.setText(post.getTopic());
             edCaption.setText(post.getCaption());
@@ -669,7 +669,6 @@ public class MediaDetailFragment extends ReporterFragment implements MainActivit
         post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
         post.getMetadata().setId(null);
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
-        post.setId(null);
 
         ReporterApplication.getInstance().updatePost(index, post);
 
