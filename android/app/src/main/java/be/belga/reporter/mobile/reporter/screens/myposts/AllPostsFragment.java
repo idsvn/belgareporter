@@ -142,19 +142,19 @@ public class AllPostsFragment extends ReporterFragment {
                 if (isLongClick == false) {
                     switch (posts.get(position).getType()) {
                         case ALERT:
-                            mainActivity.openShortDetailFragment(R.string.alert_text, posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openShortDetailFragment(R.string.alert_text, posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case SHORT:
-                            mainActivity.openShortDetailFragment(R.string.short_text, posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openShortDetailFragment(R.string.short_text, posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case AUDIO:
-                            mainActivity.openMediaDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)), R.string.audio_detail);
+                            mainActivity.openMediaDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)), R.string.audio_detail);
                             break;
                         case PICTURE:
-                            mainActivity.openPictureDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openPictureDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case VIDEO:
-                            mainActivity.openMediaDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)), R.string.video_detail);
+                            mainActivity.openMediaDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)), R.string.video_detail);
                             break;
                     }
                 }
@@ -275,15 +275,6 @@ public class AllPostsFragment extends ReporterFragment {
         swipeMenuItem.setTitleColor(getContext().getResources().getColor(titleColor));
 
         swipeMenu.addMenuItem(swipeMenuItem);
-    }
-
-    private int getIndexByProperty(List<Post> posts, Post post) {
-        for (int i = 0; i < posts.size(); i++) {
-            if (post != null && posts.get(i).getCreateDate().equals(post.getCreateDate())) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public void setStatus(int index, final String status) {

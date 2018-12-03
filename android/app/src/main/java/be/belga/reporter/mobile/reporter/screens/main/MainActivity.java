@@ -463,4 +463,13 @@ public class MainActivity extends AppCompatActivity {
         void onBackPressed();
     }
 
+    public int getIndexByProperty(Post post) {
+        List<Post> posts = ReporterApplication.getInstance().getPosts();
+        for (int i = 0; i < posts.size(); i++) {
+            if (post != null && posts.get(i).getCreateDate().equals(post.getCreateDate())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

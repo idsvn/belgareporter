@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 
-import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.application.ReporterFragment;
 import be.belga.reporter.mobile.reporter.manager.PostManager;
 import be.belga.reporter.mobile.reporter.model.Post;
@@ -141,19 +140,19 @@ public class FailedPostsFragment extends ReporterFragment {
                 if (isLongClick == false) {
                     switch (posts.get(position).getType()) {
                         case ALERT:
-                            mainActivity.openShortDetailFragment(R.string.alert_text, posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openShortDetailFragment(R.string.alert_text, posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case SHORT:
-                            mainActivity.openShortDetailFragment(R.string.short_text, posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openShortDetailFragment(R.string.short_text, posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case AUDIO:
-                            mainActivity.openMediaDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)), R.string.audio_detail);
+                            mainActivity.openMediaDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)), R.string.audio_detail);
                             break;
                         case PICTURE:
-                            mainActivity.openPictureDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)));
+                            mainActivity.openPictureDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)));
                             break;
                         case VIDEO:
-                            mainActivity.openMediaDetailFragment(posts.get(position), getIndexByProperty(posts, posts.get(position)), R.string.video_detail);
+                            mainActivity.openMediaDetailFragment(posts.get(position), mainActivity.getIndexByProperty(posts.get(position)), R.string.video_detail);
                             break;
                     }
                 }
@@ -274,15 +273,6 @@ public class FailedPostsFragment extends ReporterFragment {
         swipeMenuItem.setTitleColor(getContext().getResources().getColor(titleColor));
 
         swipeMenu.addMenuItem(swipeMenuItem);
-    }
-
-    private int getIndexByProperty(List<Post> posts, Post post) {
-        for (int i = 0; i < posts.size(); i++) {
-            if (post != null && posts.get(i).getCreateDate().equals(post.getCreateDate())) {
-                return i;
-            }
-        }
-        return -1;
     }
 
 }

@@ -82,11 +82,6 @@ public class ReporterApplication extends Application {
         return posts;
     }
 
-    public void addPosts(List<Post> posts) {
-        this.posts.addAll(posts);
-        getPersistentPreference().edit().putString(KEY_POSTS, new Gson().toJson(this.posts)).commit();
-    }
-
     public void updatePost(int index, Post post) {
         this.posts.set(index, post);
         getPersistentPreference().edit().putString(KEY_POSTS, new Gson().toJson(this.posts)).commit();

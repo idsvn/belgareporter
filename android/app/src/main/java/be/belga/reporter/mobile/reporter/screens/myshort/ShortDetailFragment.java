@@ -125,6 +125,7 @@ public class ShortDetailFragment extends ReporterFragment implements MainActivit
 
     public static ShortDetailFragment getInstance(int title, Post post, int index) {
         ShortDetailFragment instance = new ShortDetailFragment();
+
         final Bundle args = new Bundle();
         args.putString(PARAM_POST, new Gson().toJson(post));
         args.putBoolean(PARAM_ADD_NEW, false);
