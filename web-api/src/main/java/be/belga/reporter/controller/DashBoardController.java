@@ -67,15 +67,19 @@ public class DashBoardController {
 			Optional<Post> postOptional = postRepository.findById(idPost);
 			if (postOptional.isPresent()) {
 				Post post = postOptional.get();
-				int byteSize = post.getFileUpload().getSize();
-				if (post.getFileUpload().getSize() > 0) {
-					post.setSize(humanReadableByteCount(byteSize, true));
+				if(post.getFileUpload() != null) {
+					int byteSize = post.getFileUpload().getSize();
+					if (post.getFileUpload().getSize() > 0) {
+						post.setSize(humanReadableByteCount(byteSize, true));
+					}
+
+					String contextPath = "http://" + request.getServerName() + ":" + request.getServerPort()
+							+ request.getContextPath();
+
+					model.addAttribute("contextPath", contextPath);
+					
 				}
-
-				String contextPath = "http://" + request.getServerName() + ":" + request.getServerPort()
-						+ request.getContextPath();
-
-				model.addAttribute("contextPath", contextPath);
+				
 				model.addAttribute("objPost", post);
 				return "editPost";
 			}
