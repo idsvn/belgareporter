@@ -205,7 +205,7 @@
 	      </div>
 	      <!-- Modal footer -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn " data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn " onclick="stopVideo()">Cancel</button>
 	      </div>
 	    </div>
 	  </div>
@@ -237,7 +237,6 @@
         var videocontainer = document.getElementById('video');
         var videosource = document.getElementById('mp4video');
 
-    	
        	var obj =  element;
        	var nameImg = obj.getAttribute('data-name');
        	var newmp4 = context + "/data/" + nameImg ;
@@ -250,6 +249,13 @@
        	$('#playVideoModal').modal('show'); 
        
     }
+	
+	function stopVideo(){
+		var videocontainer = document.getElementById('video');
+		videocontainer.pause();
+		$('#playVideoModal').modal('hide'); 
+		
+	}
 	
 	function deletePost(){
 		
