@@ -37,6 +37,7 @@ public class ReporterApplication extends Application {
     private static final String KEY_USER_METADATA = "be.belga.belgareporter.application.KEY_USER_METADATA";
     private static final String KEY_APP_TOKEN = "be.belga.belgareporter.application.KEY_APP_TOKEN";
     private static final String KEY_STATUS_CONNECTION = "be.belga.belgareporter.application.KEY_STATUS_CONNECTION";
+    private static final String KEY_SELECTED_CONNECTION = "be.belga.belgareporter.application.KEY_SELECTED_CONNECTION";
     private static final String KEY_CHECK_SETTING = "be.belga.belgareporter.application.KEY_CHECK_SETTING";
     private static ReporterApplication instance = null;
     private static Object mutex = new Object();
@@ -44,6 +45,7 @@ public class ReporterApplication extends Application {
     private Metadata userMetadata;
     private String token = null;
     private boolean statusConnection;
+    private boolean selectedConnection;
     private boolean checkSetting;
     private List<WeakReference<OnUserChangedListener>> onUserChangedListeners = new ArrayList<>();
     private SharedPreferences persistentPreferences;
@@ -117,6 +119,15 @@ public class ReporterApplication extends Application {
     public void setStatusConnection(boolean statusConnection) {
         this.statusConnection = statusConnection;
         this.persistentPreferences.edit().putBoolean(KEY_STATUS_CONNECTION, statusConnection).commit();
+    }
+
+    public boolean isSelectedConnection() {
+        return selectedConnection;
+    }
+
+    public void setSelectedConnection(boolean selectedConnection) {
+        this.selectedConnection = selectedConnection;
+        this.persistentPreferences.edit().putBoolean(KEY_SELECTED_CONNECTION, selectedConnection).commit();
     }
 
     public boolean isCheckSetting() {

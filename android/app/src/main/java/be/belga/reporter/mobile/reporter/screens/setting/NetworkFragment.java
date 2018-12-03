@@ -83,6 +83,20 @@ public class NetworkFragment extends DialogFragment {
             mobileConnected = false;
         }
 
+        if (ReporterApplication.getInstance().isSelectedConnection()) {
+            containerRadio.check(R.id.radio_wifi_network);
+            if (wifiConnected) {
+                ReporterApplication.getInstance().setStatusConnection(true);
+            } else {
+                ReporterApplication.getInstance().setStatusConnection(false);
+            }
+        } else {
+            containerRadio.check(R.id.radio_any_network);
+            if (activeInfo != null && activeInfo.isConnected()) {
+                ReporterApplication.getInstance().setStatusConnection(true);
+            }
+        }
+
         containerRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -96,11 +110,13 @@ public class NetworkFragment extends DialogFragment {
                             } else {
                                 ReporterApplication.getInstance().setStatusConnection(false);
                             }
+                            ReporterApplication.getInstance().setSelectedConnection(true);
                             break;
                         case R.id.radio_any_network:
                             if (activeInfo != null && activeInfo.isConnected()) {
                                 ReporterApplication.getInstance().setStatusConnection(true);
                             }
+                            ReporterApplication.getInstance().setSelectedConnection(false);
                             break;
                     }
                 }
