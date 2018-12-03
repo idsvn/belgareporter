@@ -22,6 +22,7 @@ import be.belga.reporter.entity.Post;
 import be.belga.reporter.entity.RestResponse;
 import be.belga.reporter.repository.FileUploadRepository;
 import be.belga.reporter.repository.PostRepository;
+import be.belga.reporter.type.PostTypeEnum;
 
 @Controller
 @RequestMapping(value = "/dashboard")
@@ -54,6 +55,7 @@ public class DashBoardController {
 		model.addAttribute("contextPath", contextPath);
 		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
+		model.addAttribute("PostEnumVideo", PostTypeEnum.VIDEO);
 
 		return "home";
 	}

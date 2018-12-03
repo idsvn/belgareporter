@@ -111,14 +111,12 @@
                       <td th:text="${post.createDate != null} ? ${#dates.format(post.createDate, 'yyyy/MM/dd HH:mm')}">61</td>
                       <td th:text="${post?.size}">0</td>
                       <td>
-                      	<a th:href="@{/dashboard/edit/} + ${post.id}">edit</a> |
+                      	<a th:href="@{/dashboard/edit/} + ${post.id}">Edit</a> |
 <!--                       	<a href="#">published</a> | -->
 <!--                       	<a href="#">download</a> | -->
                       	<!-- <a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a> -->
-                      	<a href="#" class="confirm-delete" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a>
-                      	
-                      	<a th:if=" ${post.type} == 'VIDEO'" data-url=""></a>
-                      	
+                      	<a href="#" class="confirm-delete" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">Delete</a> |
+                      	<a href="#" th:if="${PostEnumVideo == post.type}" th:attr="data-name=${post?.fileUpload?.generatedName}"  onclick="playVideo(this)">Play</a>
                       </td>
                     </tr>
                   </tbody>
@@ -188,33 +186,72 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<!-- Modal Play Video-->
+	<div class="modal fade" id="playVideoModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Video</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <!-- Modal body -->
+	      <div class="modal-body" id="mess-body">
+			<video width="100%" height="340" id="video" controls>
+				<source src="#" type="video/mp4">
+			</video>
+	      </div>
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn " data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
     <script th:src="@{/reporter/datatables/jquery.dataTables.js}"></script>
     <script th:src="@{/reporter/datatables/dataTables.bootstrap4.js}"></script>
+    
+    <script th:inline="javascript">
+	/*<![CDATA[*/
+	    var context = /*[[@{/}]]*/;
+	/*]]>*/
+	</script>
 	
 	<script>
 	var table;
 	$(document).ready( function () {
 	    table =  $('#dataTable').DataTable();
-	    
-	} );
-	
-	$('.confirm-delete').on('click', function(e) {
-	    e.preventDefault();
-	
-	    var id = $(this).attr('data');
-	    
-	    $('#deleteModal').data('id', id).modal('show');
+
+		$('.confirm-delete').on('click', function(e) {
+		    e.preventDefault();
+		    var id = $(this).attr('data');
+		    $('#deleteModal').data('id', id).modal('show');
+		});
 	});
+	
+
+    
+    var obj;
+    function playVideo(element){
+    	
+       	obj =  element;
+       	var nameImg = obj.getAttribute('data-name');
+       	
+       	console.log(nameImg);
+       	$('#video').attr('src',context + "data/" + nameImg );
+       	$('#playVideoModal').modal('show'); 
+       
+    }
 	
 	function deletePost(){
 		
 		// var id = $('#deletePost').attr('data');
 		var id = $('#deleteModal').data('id');
-		
 		$.post("./dashboard/delete",
     	{
-			idPost: id,
+			idPost: parseInt(id),
 	    },
 	    function(data, status){
 	    	if(status === 'success'){
