@@ -292,7 +292,9 @@ public class MediaFragment extends ReporterFragment implements MainActivity.OnBa
             }
         }
         for (Post post : posts) {
-            post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+            if (post.getMetadata().getId().isEmpty()) {
+                post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+            }
             post.getMetadata().setId(null);
             post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
 

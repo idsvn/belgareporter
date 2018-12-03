@@ -182,21 +182,6 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
                     getActivity().getSupportFragmentManager().popBackStackImmediate();
                     return true;
                 case android.R.id.home:
-//                    posts = new ArrayList<>();
-//                    for (int i = 0; i < files.size(); i++) {
-//                        Post post = new Post();
-//                        String path;
-//                        path = files.get(i).getGeneratedUrl();
-//
-//                        files.get(i).setSize(mainActivity.getSizePicture(path));
-//
-//                        post.setWorkflowStatus(Post.PostWorkflowStatus.NEW);
-//                        post.setType(Post.PostType.PICTURE.getStatus());
-//                        post.setCreateDate(new Date().getTime());
-//                        post.setFileUpload(files.get(i));
-//                        posts.add(post);
-//                    }
-
                     addNewPost();
                     mainActivity.getSupportFragmentManager().popBackStackImmediate();
                     return true;
@@ -474,7 +459,9 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
             }
         }
         for (Post post : posts) {
-            post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+            if (post.getMetadata().getId().isEmpty()) {
+                post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
+            }
             post.getMetadata().setId(null);
             post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
 

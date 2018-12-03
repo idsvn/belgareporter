@@ -180,7 +180,7 @@ public class Post implements Serializable {
     @Keep
     public enum PostWorkflowStatus {
         NEW("NEW", "New", R.mipmap.status_new_icon, R.color.chinook),
-        IN_PROGRESS("IN PROGRESS", "In Progress", R.mipmap.status_uploading_icon, R.color.golden_poppy),
+        IN_PROGRESS("INPROGRESS", "In Progress", R.mipmap.status_uploading_icon, R.color.golden_poppy),
         PUBLISHED("PUBLISHED", "Published", R.mipmap.status_published_icon, R.color.summer_sky),
         FAILED("FAILED", "Failed", R.mipmap.status_failed_icon, R.color.dark_orange);
 
