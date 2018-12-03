@@ -25,7 +25,7 @@ public class NetworkReceiver extends BroadcastReceiver {
             // to true. This causes the display to be refreshed when the user
             // returns to the app.
             NetworkFragment.refreshDisplay = true;
-            Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_SHORT).show();
 
             // If the setting is ANY network and there is a network connection
             // (which by process of elimination would be mobile), sets refreshDisplay to true.

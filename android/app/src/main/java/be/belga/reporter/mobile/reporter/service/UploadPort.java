@@ -58,6 +58,7 @@ public class UploadPort extends AsyncTask<String, Long, Post> {
                             if (ReporterApplication.getInstance().isStatusConnection()) {
                                 sendPost(activity, fragment, post);
                             } else {
+                                post.setWorkflowStatus(Post.PostWorkflowStatus.FAILED);
                                 Toast.makeText(activity, "Error Connection", Toast.LENGTH_SHORT).show();
                             }
                         }
