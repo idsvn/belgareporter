@@ -128,7 +128,7 @@
 											| <!--                       	<a href="#">published</a> | -->
 											<!--                       	<a href="#">download</a> | --> <!-- <a href="#" id="deletePost" th:data="${post.id}" data-toggle="modal" data-target="#deleteModal">delete</a> -->
 											<a href="#" class="confirm-delete" th:data="${post.id}"
-											data-toggle="modal" data-target="#deleteModal">Delete</a> | <a
+											data-toggle="modal" onclick="funcDelete(this)">Delete</a> | <a
 											href="#"
 											th:if="${PostEnumVideo == post.type || PostEnumAudio == post.type}"
 											th:attr="data-name=${post?.fileUpload?.generatedName}"
@@ -173,7 +173,7 @@
 				<!-- Modal footer -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success"
-						onclick="deletePost()" data-dismiss="modal">OK</button>
+						 data-dismiss="modal" id="agreeDelete">OK</button>
 					<button type="button" class="btn " data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -243,11 +243,6 @@
 	$(document).ready( function () {
 	    table =  $('#dataTable').DataTable();
 
-		$('.confirm-delete').on('click', function(e) {
-		    e.preventDefault();
-		    var id = $(this).attr('data');
-		    $('#deleteModal').data('id', id).modal('show');
-		});
 		
 		$('#playVideoModal').on('hide.bs.modal', function () {
 	  		var videocontainer = document.getElementById('video');
@@ -257,6 +252,27 @@
 			audiocontainer.pause();
 		});
 	});
+	
+	function funcDelete(element){
+	    var id = $(element).attr('data');
+	    console.log(id)
+	    $( "#agreeDelete").unbind( "click" );
+	    $('#agreeDelete').bind( "click", function() {
+	    	$.post("./dashboard/delete",
+        	{
+    			idPost: parseInt(id),
+    	    },
+    	    function(data, status){
+    	    	if(status === 'success'){
+    	    		$('#successModal').modal('show'); 
+    	        	table.row( $( "#tablePost" + id) ).remove().draw();
+    	    	}
+    	    });
+	    });
+	    
+	    
+	    $('#deleteModal').modal('show');
+	}
 	
 	function playFile(element , type){
 		var audiocontainer = document.getElementById('audio');
@@ -297,22 +313,7 @@
 		$('#playVideoModal').modal('hide'); 
 	}
 	
-	function deletePost(){
-		
-		// var id = $('#deletePost').attr('data');
-		var id = $('#deleteModal').data('id');
-		$.post("./dashboard/delete",
-    	{
-			idPost: parseInt(id),
-	    },
-	    function(data, status){
-	    	if(status === 'success'){
-	    		$('#successModal').modal('show'); 
-	        	table.row( $( "#tablePost" + id) ).remove().draw();
-	    	}
-	    });
-			 	
-	}
+	
 	</script>
 </body>
 
