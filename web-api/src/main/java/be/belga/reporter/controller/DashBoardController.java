@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import be.belga.reporter.entity.Post;
 import be.belga.reporter.entity.RestResponse;
@@ -27,6 +30,8 @@ import be.belga.reporter.type.PostTypeEnum;
 @Controller
 @RequestMapping(value = "/dashboard")
 public class DashBoardController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
 	@Autowired
 	PostRepository postRepository;
@@ -56,6 +61,7 @@ public class DashBoardController {
 		model.addAttribute("lstPost", posts);
 		model.addAttribute("objPost", new Post());
 		model.addAttribute("PostEnumVideo", PostTypeEnum.VIDEO);
+		model.addAttribute("PostEnumAudio", PostTypeEnum.AUDIO);
 
 		return "home";
 	}
@@ -69,13 +75,12 @@ public class DashBoardController {
 				Post post = postOptional.get();
 				if(post.getFileUpload() != null) {
 					int byteSize = post.getFileUpload().getSize();
-					if (post.getFileUpload().getSize() > 0) {
+					if (byteSize > 0) {
 						post.setSize(humanReadableByteCount(byteSize, true));
 					}
 
 					String contextPath = "http://" + request.getServerName() + ":" + request.getServerPort()
 							+ request.getContextPath();
-
 					model.addAttribute("contextPath", contextPath);
 					
 				}
@@ -104,21 +109,32 @@ public class DashBoardController {
 	}
 
 	@PostMapping("/update")
-	public String updatePost(@ModelAttribute("objPost") Post post) {
+	public String updatePost(@ModelAttribute("objPost") Post post , RedirectAttributes ra) {
+		
+		if(post.getId() > 0) {
+			try {
+				Optional<Post> optionalPost = postRepository.findById(post.getId());
+				if (optionalPost.isPresent()) {
 
-		if (postRepository.findById(post.getId()).isPresent()) {
+					Post postTemp = optionalPost.get();
 
-			Post postTemp = postRepository.findById(post.getId()).get();
+					postTemp.setTitle(post.getTitle());
+					postTemp.setTopic(post.getTopic());
+					postTemp.setLead(post.getLead());
+					postTemp.setBody(post.getBody());
 
-			postTemp.setTitle(post.getTitle());
-			postTemp.setTopic(post.getTopic());
-			postTemp.setLead(post.getLead());
-			postTemp.setBody(post.getBody());
-
-			postRepository.save(postTemp);
+					postRepository.save(postTemp);
+					
+					ra.addFlashAttribute("statusUpdate", "200");
+				}
+			}catch(Exception ex) {
+				logger.debug(ex.getMessage());
+				ra.addFlashAttribute("statusUpdate", "404");
+			}
+			
+			return "redirect:/dashboard/edit/" + post.getId();
 		}
-
-		return "redirect:/dashboard";
+		return "redirect:/dashboard"; 
 	}
 
 	public static String humanReadableByteCount(long bytes, boolean si) {
