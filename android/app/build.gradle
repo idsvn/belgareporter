@@ -3,10 +3,14 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
+
+    buildToolsVersion "27.0.3"
+
     defaultConfig {
         applicationId "be.belga.reporter"
         minSdkVersion 21
         targetSdkVersion 27
+
         versionCode 1
         versionName "1.0.0"
 
@@ -14,13 +18,51 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            storeFile file(System.getenv("HOME") + "/keystores/my_keystore.jks")
+            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
         }
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        reporter {
+            dimension "version"
+            minSdkVersion 21
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            debuggable true
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles fileTree(dir: "proguard", include: ["*.pro"]).asList().toArray()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ext.betaDistributionReleaseNotes = "Autobuild and uploaded using gradle"
+            ext.betaDistributionEmails = "vinh.bui@idsolutions.com.vn"
+            ext.betaDistributionGroupAliases = "alpha-group"
+        }
+
+        println 'Going into variants'
+        android.applicationVariants.each { variant ->
+            variant.processManifest.doLast {
+                println 'Looping Variant'
+                overrideMapsKey(variant)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -55,5 +97,39 @@ dependencies {
     implementation 'io.realm:android-adapters:2.0.0'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.baoyz.swipemenulistview:library:1.3.0'
-
 }
+
+def overrideMapsKey(buildVariant) {
+    println 'In overrideMapsKey()'
+    def appName = getAppName(buildVariant)
+
+    renameAPK(buildVariant, appName)
+}
+
+// *** RENAME APK ***
+def renameAPK(buildVariant, appName) {
+    println 'In renameAPK()'
+    def apk = buildVariant.packageApplication.outputFile;
+    def newName;
+
+    // get data for apk renaming
+    def versionName = android.defaultConfig.versionName
+    def versionNameSuffix = buildVariant.buildType.versionNameSuffix
+    if (versionNameSuffix.toString().equals("null"))
+        versionNameSuffix = ""
+    def buildTypeOfApp = buildVariant.buildType.name
+
+    if (buildVariant.zipAlign) {
+        newName = appName + buildTypeOfApp.toUpperCase() + "-v" + versionName + versionNameSuffix + "-" + getDate() + "-" + ".apk"
+    } else {
+        newName = appName + buildTypeOfApp.toUpperCase() + "-v" + versionName + versionNameSuffix + "-ALIGNED" + ".apk"
+    }
+    buildVariant.packageApplication.outputFile = new File(apk.parentFile, newName);
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}
+
