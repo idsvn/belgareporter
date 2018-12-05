@@ -246,11 +246,11 @@
 	    	        scrollX:        true,
 	    	        columnDefs: [
 	    	            { width: '10%', targets: 0 },
-	    	            { width: '30%', targets: 1 },
-	    	            { width: '30%', targets: 2 },
-	    	            { width: '10%', targets: 3 },
-	    	            { width: '10%', targets: 4 },
-	    	            { width: '10%', targets: 5 },
+	    	            { width: '25%', targets: 1 },
+	    	            { width: '25%', targets: 2 },
+	    	            { width: '15%', targets: 3 },
+	    	            { width: '13%', targets: 4 },
+	    	            { width: '12%', targets: 5 },
 	    	            
 	    	        ],
 	    	        fixedColumns: true
@@ -268,7 +268,6 @@
 	
 	function funcDelete(element){
 	    var id = $(element).attr('data');
-	    console.log(id)
 	    $( "#agreeDelete").unbind( "click" );
 	    $('#agreeDelete').bind( "click", function() {
 	    	$.post("./dashboard/delete",
