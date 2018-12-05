@@ -13,6 +13,7 @@ import java.util.Map;
 
 import be.belga.reporter.mobile.reporter.application.ReporterApplication;
 import be.belga.reporter.mobile.reporter.model.Post;
+import be.belga.reporter.mobile.reporter.screens.main.MainActivity;
 import be.belga.reporter.mobile.reporter.screens.myposts.AllPostsFragment;
 import be.belga.reporter.mobile.reporter.screens.myposts.InProgressPostsFragment;
 import be.belga.reporter.utils.FileUtil;
@@ -32,7 +33,7 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
         this.client = client;
         this.upload = upload;
         this.post = post;
-        this.index = getIndexByProperty(ReporterApplication.getInstance().getPosts(), post);
+        this.index = ((MainActivity) activity).getIndexByProperty(post);
     }
 
     @Override
@@ -47,12 +48,13 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
 
     @Override
     protected void onPostExecute(URL url) {
-        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.PUBLISHED)) {
+        post = ReporterApplication.getInstance().getPosts().get(index);
+        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.PUBLISHED.getStatus())) {
             AllPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.PUBLISHED.getStatus(), Post.PostWorkflowStatus.PUBLISHED.getIconResource());
             InProgressPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.PUBLISHED.getStatus(), Post.PostWorkflowStatus.PUBLISHED.getIconResource());
         }
 
-        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.FAILED)) {
+        if (post.getWorkflowStatus().getStatus().equals(Post.PostWorkflowStatus.FAILED.getStatus())) {
             AllPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.FAILED.getStatus(), Post.PostWorkflowStatus.FAILED.getIconResource());
             InProgressPostsFragment.getInstance().setStatus(index, Post.PostWorkflowStatus.FAILED.getStatus(), Post.PostWorkflowStatus.FAILED.getIconResource());
         }
@@ -88,15 +90,6 @@ public class UploadFile extends AsyncTask<Void, Long, URL> {
         }
 
         return null;
-    }
-
-    private int getIndexByProperty(List<Post> posts, Post post) {
-        for (int i = 0; i < posts.size(); i++) {
-            if (post != null && posts.get(i).getCreateDate().equals(post.getCreateDate())) {
-                return i;
-            }
-        }
-        return -1;
     }
 
 }
