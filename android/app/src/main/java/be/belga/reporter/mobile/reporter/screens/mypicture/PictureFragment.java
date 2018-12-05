@@ -459,7 +459,7 @@ public class PictureFragment extends ReporterFragment implements MainActivity.On
             }
         }
         for (Post post : posts) {
-            if (post.getMetadata().getId().isEmpty()) {
+            if (post.getMetadata().getId() == null) {
                 post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
             }
             post.getMetadata().setId(null);

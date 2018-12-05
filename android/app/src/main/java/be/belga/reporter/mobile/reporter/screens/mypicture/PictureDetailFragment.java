@@ -702,7 +702,7 @@ public class PictureDetailFragment extends ReporterFragment implements MainActiv
                 fragment = (AllPostsFragment) f;
             }
         }
-        if (post.getMetadata().getId().isEmpty()) {
+        if (post.getMetadata().getId() == null) {
             post.setMetadata(ReporterApplication.getInstance().getUserMetadata());
         }
         post.setWorkflowStatus(Post.PostWorkflowStatus.IN_PROGRESS);
