@@ -65,7 +65,7 @@
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" th:href="@{/dasboard}">
+          <a class="nav-link" th:href="@{/dashboard}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -114,19 +114,19 @@
 	              	 		<input th:value="${objPost.id}" th:name="id" style="display: none;"/>
 						  <div class="form-group">
 						    <label for="frmTopic">Topic</label>
-						    <input type="text" class="form-control" id="frmTopic" th:name="topic" th:value="${objPost.topic}">
+						    <input type="text" class="form-control" id="frmTopic" th:name="topic" th:value="${objPost.topic}" pattern=".{0,100}" required title="0 to 100 characters">
 						  </div>
 						  <div class="form-group">
 						    <label for="frmTitle">Title</label>
-						    <input type="text" class="form-control" id="frmTitle" th:name="title" th:value="${objPost.title}">
+						    <input type="text" class="form-control" id="frmTitle" th:name="title" th:value="${objPost.title}" pattern=".{0,100}" required title="0 to 100 characters">
 						  </div>
 						  <div class="form-group">
 						    <label for="frmLead">Lead</label>
-						    <textarea cols="10" rows="5" class="form-control" id="frmLead" th:name="lead" th:text="${objPost.lead}"></textarea>
+						    <textarea cols="10" rows="3" class="form-control" id="frmLead" th:name="lead" th:text="${objPost.lead}" maxlength="256" title="Name should have at least 256 characters."></textarea>
 						  </div>
 						  <div class="form-group">
 						    <label for="frmBody">Body</label>
-						    <textarea cols="10" rows="10" class="form-control" id="frmBody" th:name="body" th:text="${objPost.body}"></textarea>
+						    <textarea cols="10" rows="10" class="form-control" id="frmBody" th:name="body" th:text="${objPost.body}" maxlength="4000" title="Name should have at least 4000 characters."></textarea>
 						  </div>
 						  <button type="submit" class="btn btn-success">Save</button>
 						  <a href="#" th:href="@{/dashboard}" class="btn btn-default" role="button" style="background-color: #e7e7e7; color: black;">Cancel</a>
