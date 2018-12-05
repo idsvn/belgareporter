@@ -24,23 +24,23 @@ public class LoginController {
 		return "login";
 	}
 	
-	@PostMapping(value = "/process_login")
-	public String process(@RequestParam String username, @RequestParam String password , RedirectAttributes ra) {
-		
-		if(username != null) {
-			User user = userRepository.findOneByUsername(username);
-			if(user != null) {
-				if(user.getPassword().equals(password)) {
-					ra.addFlashAttribute("error", "");
-					return "redirect:/dashboard";
-				}
-				else {
-					ra.addFlashAttribute("error", "check again username and password");
-				}
-			}
-		}
-		 
-		return "redirect:/login";
-		
-	}
+//	@PostMapping(value = "/process_login")
+//	public String process(@RequestParam String username, @RequestParam String password , RedirectAttributes ra) {
+//		
+//		if(username != null) {
+//			User user = userRepository.findOneByUsername(username);
+//			if(user != null) {
+//				if(user.getPassword().equals(password)) {
+//					ra.addFlashAttribute("error", "");
+//					return "redirect:/dashboard";
+//				}
+//				else {
+//					ra.addFlashAttribute("error", "check again username and password");
+//				}
+//			}
+//		}
+//		 
+//		return "redirect:/login";
+//		
+//	}
 }
