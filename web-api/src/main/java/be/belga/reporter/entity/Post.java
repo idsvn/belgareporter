@@ -3,11 +3,11 @@ package be.belga.reporter.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +36,7 @@ public class Post implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private String caption;
 
@@ -56,6 +56,12 @@ public class Post implements Serializable {
 	private String lead;
 
 	@Transient
+	private Integer fileId;
+
+	@Transient
+	private Integer metaId;
+
+	@Transient
 	private String size;
 
 	@Enumerated(EnumType.STRING)
@@ -63,16 +69,16 @@ public class Post implements Serializable {
 
 	private String body;
 
-	// bi-directional one-to-one association to Metadata
-	@OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
+	// @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "meta_id")
 	private Metadata metadata;
 
-	// bi-directional many-to-one association to FileUpload
 	@ManyToOne
 	@JoinColumn(name = "file_id")
 	private FileUpload fileUpload;
 
-	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "username")
 	private User user;
@@ -80,11 +86,11 @@ public class Post implements Serializable {
 	public Post() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int postId) {
+	public void setId(Integer postId) {
 		this.id = postId;
 	}
 
@@ -183,6 +189,22 @@ public class Post implements Serializable {
 
 	public void setSize(String size) {
 		this.size = size;
+	}
+
+	public Integer getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(Integer fileId) {
+		this.fileId = fileId;
+	}
+
+	public Integer getMetaId() {
+		return metaId;
+	}
+
+	public void setMetaId(Integer metaId) {
+		this.metaId = metaId;
 	}
 
 }

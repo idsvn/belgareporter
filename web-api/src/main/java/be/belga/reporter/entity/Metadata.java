@@ -2,12 +2,11 @@ package be.belga.reporter.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
@@ -22,7 +21,7 @@ public class Metadata implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private String author;
 
@@ -58,19 +57,20 @@ public class Metadata implements Serializable {
 	private String status;
 
 	@JsonIgnore
-    @MapsId
-	@OneToOne
-	@JoinColumn(name = "id")
+	// @MapsId
+	// @OneToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "id")
+	@OneToOne(mappedBy = "metadata", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Post post;
 
 	public Metadata() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

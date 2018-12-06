@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import be.belga.reporter.entity.FileUpload;
+import be.belga.reporter.entity.Metadata;
 import be.belga.reporter.entity.Post;
 import be.belga.reporter.entity.RestResponse;
 import be.belga.reporter.repository.PostRepository;
@@ -119,10 +121,23 @@ public class PostController {
 				post.setCreateDate(new Date());
 				post.setStatus(StatusTypeEnum.A);
 
-				// post.getMetadata().setPost(post);
+				if (post.getFileId() != null && post.getFileId() > 0) {
+					FileUpload fileUpload = new FileUpload();
+					fileUpload.setId(post.getFileId());
+
+					post.setFileUpload(fileUpload);
+				}
+
+				if (post.getMetaId() != null && post.getMetaId() > 0) {
+					Metadata metadata = new Metadata();
+					metadata.setId(post.getMetaId());
+
+					post.setMetadata(metadata);
+				}
 
 				try {
 					Post postDTO = postRepository.save(post);
+					
 					list.add(postDTO);
 					logger.info("====== create end =======");
 				} catch (Exception e) {
